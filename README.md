@@ -1,2 +1,2 @@
 # CPPRPG
-Working Title for top down zombie survival game for CMPS115
+Working Title for top down survival game for CMPS115
