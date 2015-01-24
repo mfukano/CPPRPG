@@ -14,7 +14,7 @@ public class MainMenu : MonoBehaviour {
 
 		//display menu buttons
 		if (GUI.Button (new Rect (Screen.width*pos, Screen.height*pos, Screen.width*buttonWidth, Screen.height*buttonHeight), "New Game")){
-			Application.LoadLevel("TestArea");
+			Application.LoadLevel("TestScene1");
 		}
 		if (GUI.Button (new Rect (Screen.width*pos, Screen.height*2*pos, Screen.width*buttonWidth, Screen.height*buttonHeight), "Quit")) {
 			Application.Quit();
