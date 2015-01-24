@@ -7,14 +7,16 @@ public class Level : MonoBehaviour {
 	private int levelHeight;
 
 	public Transform grassTile;
-	public Transform stoneBrickTile;
+	public Transform lavaTile;
 
 	private Color[] tileColors;
 
 	public Color grassColor;
-	public Color stoneBrickColor;
+	public Color lavaColor;
 
 	public Texture2D levelTexture;
+
+	public Entity player;
 
 	// Use this for initialization
 	void Start () {
@@ -36,15 +38,15 @@ public class Level : MonoBehaviour {
 
 		for (int y = 0; y < levelHeight; y++)
 		{
-			for (int x = 0; x < levelWidth; y++)
+			for (int x = 0; x < levelWidth; x++)
 			{
-				if (tileColors[x+y*levelWidth] == grassColor)
+				if (tileColors[x+(y*levelWidth)] == grassColor)
 				{
 					Instantiate(grassTile, new Vector3(x,y), Quaternion.identity);
 				}
-				if (tileColors[x+y*levelWidth] == stoneBrickColor)
+				if (tileColors[x+(y*levelWidth)] == lavaColor)
 				{
-					Instantiate(stoneBrickTile, new Vector3(x,y), Quaternion.identity);
+					Instantiate(lavaTile, new Vector3(x,y), Quaternion.identity);
 				}
 			}
 		}
