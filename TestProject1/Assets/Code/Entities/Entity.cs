@@ -13,6 +13,8 @@ public abstract class Entity : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		transform.position = new Vector3 (Mathf.Round (rigidbody2D.position.x),
+		                                 Mathf.Round (rigidbody2D.position.y));
 	
 	}
 }
