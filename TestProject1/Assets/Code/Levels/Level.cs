@@ -5,6 +5,8 @@ public class Level : MonoBehaviour {
 
 	private int levelWidth;
 	private int levelHeight;
+	private int tileWidth = 31;
+	private int tileHeight = 31;
 
 	public Transform grassTile;
 	public Transform lavaTile;
@@ -42,11 +44,11 @@ public class Level : MonoBehaviour {
 			{
 				if (tileColors[x+(y*levelWidth)] == grassColor)
 				{
-					Instantiate(grassTile, new Vector3(x,y), Quaternion.identity);
+					Instantiate(grassTile, new Vector3(x*tileWidth,y*tileHeight), Quaternion.identity);
 				}
 				if (tileColors[x+(y*levelWidth)] == lavaColor)
 				{
-					Instantiate(lavaTile, new Vector3(x,y), Quaternion.identity);
+					Instantiate(lavaTile, new Vector3(x*tileWidth,y*tileHeight), Quaternion.identity);
 				}
 			}
 		}
