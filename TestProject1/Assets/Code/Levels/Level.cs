@@ -5,8 +5,8 @@ public class Level : MonoBehaviour {
 
 	private int levelWidth;
 	private int levelHeight;
-	private int tileWidth = 31;
-	private int tileHeight = 31;
+	private int tileWidth = 30;
+	private int tileHeight = 30;
 
 	public Transform grassTile;
 	public Transform lavaTile;
