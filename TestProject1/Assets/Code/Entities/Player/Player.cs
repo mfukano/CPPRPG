@@ -101,7 +101,8 @@ public class Player : Entity {
 		velocity *= speed/100f;
 		truePos = rigidbody2D.transform.position;
 		truePos += velocity;
-		rigidbody2D.transform.position = new Vector3 (Mathf.Round (truePos.x), Mathf.Round (truePos.y), 0.0f);
+		rigidbody2D.velocity = velocity * 50f;
+		//rigidbody2D.transform.position = new Vector3 (Mathf.Round (truePos.x), Mathf.Round (truePos.y), 0.0f);
 
 	}
 	
