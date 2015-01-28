@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[ExecuteInEditMode]
 public class Level : MonoBehaviour {
 
 	private int levelWidth;
@@ -20,6 +21,8 @@ public class Level : MonoBehaviour {
 
 	public Entity player;
 
+
+
 	// Use this for initialization
 	void Start () {
 		levelWidth = levelTexture.width;
@@ -27,10 +30,12 @@ public class Level : MonoBehaviour {
 		loadLevel ();
 	
 	}
-	
+
+	// Make the script also execute in edit mode.
+
 	// Update is called once per frame
 	void Update () {
-	
+		//loadLevel ();
 	}
 
 	void loadLevel()

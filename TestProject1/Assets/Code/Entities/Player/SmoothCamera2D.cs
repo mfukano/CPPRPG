@@ -30,7 +30,7 @@ public class SmoothCamera2D : MonoBehaviour {
 			//var v = target.position;
 			//transform.position = Vector3.MoveTowards(transform.position, v, 10 * Time.deltaTime);
 			var v = target.position;
-			transform.position = new Vector3 (v.x, v.y, transform.position.z);
+			//transform.position = new Vector3 (v.x, v.y, transform.position.z);
 		}
 
 		
