@@ -105,33 +105,4 @@ public class Player : Entity {
 		//rigidbody2D.transform.position = new Vector3 (Mathf.Round (truePos.x), Mathf.Round (truePos.y), 0.0f);
 
 	}
-
-	void ChangeTileAlpha(float alpha, Collider2D col) {
-		if (col.gameObject.tag == "Building") {
-			int children = col.gameObject.transform.childCount;
-			int i = 0;
-			while (i < children) {
-				Transform tile = col.gameObject.transform.GetChild(i);
-				if (tile.name == "RoofTile") {
-					Color color = tile.renderer.material.color;
-					color.a = alpha;
-					tile.renderer.material.color = color;
-				}
-				i++;
-			}
-		}
-	}
-
-	void OnTriggerEnter2D(Collider2D col) {
-		if (col.gameObject.tag == "Building") {
-			ChangeTileAlpha(0.1f, col);
-		}
-	}
-
-	void OnTriggerExit2D(Collider2D col) {
-		if (col.gameObject.tag == "Building") {
-			ChangeTileAlpha(1.0f, col);
-		}
-	}
-
 }

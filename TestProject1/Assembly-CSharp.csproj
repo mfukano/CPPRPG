@@ -55,6 +55,7 @@
      <Compile Include="Assets\Code\Levels\Level.cs" />
      <Compile Include="Assets\Code\Levels\TileSet.cs" />
      <Compile Include="Assets\Main Menu\Scripts\MainMenu.cs" />
+     <Compile Include="Assets\RoofFade.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
  </Reference>
