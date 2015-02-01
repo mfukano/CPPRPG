@@ -49,6 +49,7 @@
      <Compile Include="Assets\Code\Entities\Entity.cs" />
      <Compile Include="Assets\Code\Entities\Player\PauseMenu.cs" />
      <Compile Include="Assets\Code\Entities\Player\Player.cs" />
+     <Compile Include="Assets\Code\Entities\Player\PlayerNZMovement.cs" />
      <Compile Include="Assets\Code\Entities\Player\SmoothCamera2D.cs" />
      <Compile Include="Assets\Code\Levels\Grid.cs" />
      <Compile Include="Assets\Code\Levels\GridWindow.cs" />
