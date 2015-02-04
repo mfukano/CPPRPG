@@ -5,11 +5,10 @@ public class PauseMenu : MonoBehaviour {
 	public float buttonWidth = 0.5f;
 	public float buttonHeight = 0.12f;
 	public float pos = 0.25f;
-	bool paused = false;
+	private bool paused = false;
 
 	// Use this for initialization
 	void Start () {
-		Screen.lockCursor = true;
 		Time.timeScale = 1;
 	}
 
@@ -33,11 +32,9 @@ public class PauseMenu : MonoBehaviour {
 
 	bool togglePause() {
 		if (Time.timeScale == 0) {
-			Screen.lockCursor = true;
 			Time.timeScale = 1;
 			return false;
 		} else {
-			Screen.lockCursor = false;
 			Time.timeScale = 0;
 			return true;
 		}
