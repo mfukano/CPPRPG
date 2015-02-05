@@ -46,17 +46,26 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Code\Consumables\Consumables.cs" />
+     <Compile Include="Assets\Code\Entities\Camera\SmoothCamera2D.cs" />
      <Compile Include="Assets\Code\Entities\Entity.cs" />
      <Compile Include="Assets\Code\Entities\Player\PauseMenu.cs" />
      <Compile Include="Assets\Code\Entities\Player\Player.cs" />
      <Compile Include="Assets\Code\Entities\Player\PlayerNZMovement.cs" />
-     <Compile Include="Assets\Code\Entities\Player\SmoothCamera2D.cs" />
+     <Compile Include="Assets\Code\Equippables\Equippables.cs" />
+     <Compile Include="Assets\Code\Equippables\Melee\Melee.cs" />
+     <Compile Include="Assets\Code\Equippables\Ranged\Ranged.cs" />
+     <Compile Include="Assets\Code\Levels\Exit_World_Script.cs" />
      <Compile Include="Assets\Code\Levels\Grid.cs" />
      <Compile Include="Assets\Code\Levels\GridWindow.cs" />
      <Compile Include="Assets\Code\Levels\Level.cs" />
+     <Compile Include="Assets\Code\Levels\Map.cs" />
      <Compile Include="Assets\Code\Levels\TileSet.cs" />
      <Compile Include="Assets\Main Menu\Scripts\MainMenu.cs" />
-     <Compile Include="Assets\RoofFade.cs" />
+     <Compile Include="Assets\Scripts\Item Scripts\Inventory.cs" />
+     <Compile Include="Assets\Scripts\Item Scripts\Item.cs" />
+     <Compile Include="Assets\Scripts\Item Scripts\ItemDB.cs" />
+     <Compile Include="Assets\Scripts\RoofFade.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
  </Reference>
