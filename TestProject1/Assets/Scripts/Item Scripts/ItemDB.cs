@@ -7,5 +7,6 @@ public class ItemDB : MonoBehaviour {
 
 	void Start() {
 		items.Add (new Item ("Bat", 0, 3, Item.ItemType.Equipment));
+		items.Add (new Item ("Pear", 1, 5, Item.ItemType.Consumable));
 	}
 }

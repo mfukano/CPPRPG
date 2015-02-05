@@ -4,7 +4,7 @@ using System.Collections;
 public class Entity : MonoBehaviour {
 
 	public float speed;
-
+	public float playerHealth;
 	// Use this for initialization
 	void Start () {
 		rigidbody2D.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
