@@ -68,6 +68,10 @@ public class Consumables : MonoBehaviour {
 		}
 	}
 
+	void OnTriggerExit2D(Collider2D col) {
+		Highlighted = false;
+	}
+
 	void pickUpItem(){
 		//add the item into your inventory
 
