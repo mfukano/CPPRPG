@@ -36,7 +36,7 @@ public class SmoothCamera2D : MonoBehaviour {
 //		
 //	}
 
-	void LateUpdate()
+	void Update()
 	{
 		if (target)
 		{
