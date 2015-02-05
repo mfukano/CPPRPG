@@ -25,7 +25,7 @@ public class Consumables : MonoBehaviour {
 		//access the players health
 		GameObject p = GameObject.Find("Player_Character");
 		Player eScript = p.GetComponent<Player>();
-		pHealth = eScript.playerHealth;
+		//pHealth = eScript.playerHealth;
 		//database = GameObject.FindGameObjectWithTag ("Item Database").GetComponent<ItemDB>();
 		//inventory.Add (database.items[0]);
 	}
