@@ -1,0 +1,135 @@
+fileFormatVersion: 2
+guid: 0b47ae98bf644954280458d015a85a53
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Run1
+    21300002: Run2
+    21300004: Run3
+    21300006: Run4
+    21300008: Run5
+    21300010: Run6
+    21300012: Idle1
+    21300014: Idle2
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 1
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Run1
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 458
+        width: 86
+        height: 62
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Run2
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 420
+        width: 85
+        height: 100
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Run3
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 301
+        width: 87
+        height: 101
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Run4
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 327
+        width: 96
+        height: 65
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Run5
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 168
+        width: 84
+        height: 101
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Run6
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 179
+        width: 75
+        height: 101
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Idle1
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 45
+        width: 70
+        height: 93
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Idle2
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 46
+        width: 131
+        height: 96
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
