@@ -3,22 +3,76 @@ using System.Collections;
 
 [System.Serializable]
 public class Item : MonoBehaviour {
+	// things that all items have
 	public string itemName;
 	public int itemID;
 	public int itemWeight;
 	public Texture2D itemIcon;
-	public ItemType itemType;
 
-	public enum ItemType {
-		Equipment,
-		Consumable
+	// other stuff
+	private string labelText = "Press E to pickup";
+	private bool Highlighted;
+	private bool getRidOfIt = false;
+	private bool pickUp = false;
+	private GameObject player = null;
+
+	public Item() {
+	
 	}
 
-	public Item(string name, int ID, int weight, ItemType type) {
+	public Item(string name, int ID, int weight) {
 		itemName = name;
 		itemID = ID;
 		itemWeight = weight;
 		itemIcon = Resources.Load<Texture2D> ("Item_Sprites/" + name);
-		itemType = type;
 	}
+
+	public void OnGUI(){
+		if(Highlighted == true){
+			//GUI.Box(Rect(140,Screen.height-50,Screen.width-300,120),(labelText));
+			GUI.Box (new Rect (680, 40, 200, 50), labelText);
+		}
+	}
+
+	// Update is called once per frame
+	public void Update () {
+		if (pickUp == true) {						
+			if (Input.GetKeyUp (KeyCode.E)) {
+				//inventory.Add (database.items[1]);
+				Highlighted = false;
+				getRidOfIt = true;
+				pickUp = false;
+
+			}
+		}
+		
+		if (getRidOfIt == true) {
+			// add to inventory
+			//Item item = (Item)gameObject.GetComponent(typeof(Item));
+			addToInventory ();
+			Destroy(gameObject);
+		}
+	}
+
+	//for collision of item with player, after collision pick up item, now it destroys the item
+	public void OnTriggerEnter2D(Collider2D col) {
+		if (col.gameObject.tag == "Player") {
+			player = col.gameObject;
+			Highlighted = true;
+			pickUp = true;
+		}
+	}
+	
+	public void OnTriggerExit2D(Collider2D col) {
+		if (col.gameObject.tag == "Player") {
+			Highlighted = false;
+			pickUp = false;
+		}
+	}
+
+	public void addToInventory() {
+		Inventory i = (Inventory)player.GetComponent(typeof(Inventory));
+		i.inventory.Add (this);
+	}
+
 }

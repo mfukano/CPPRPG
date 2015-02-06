@@ -11,7 +11,7 @@ public class Inventory : MonoBehaviour {
 	void Start () {
 		Time.timeScale = 1;
 		database = GameObject.FindGameObjectWithTag ("Item Database").GetComponent<ItemDB>();
-		inventory.Add (database.items[0]);
+		//inventory.Add (database.items[0]);
 	}
 
 	void OnGUI () {
