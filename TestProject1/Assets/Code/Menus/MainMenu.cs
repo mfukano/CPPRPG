@@ -21,7 +21,7 @@ public class MainMenu : MonoBehaviour {
 		GUI.Label (new Rect (Screen.width*pos, Screen.height*pos, Screen.width*buttonWidth, Screen.height*buttonHeight), "Not Zombies", style);
 		//display menu buttons
 		if (GUI.Button (new Rect (Screen.width*pos, Screen.height*2*pos, Screen.width*buttonWidth, Screen.height*buttonHeight), "New Game")){
-			Application.LoadLevel("TestScene1");
+			Application.LoadLevel("Coastalis_Final");
 		}
 		if (GUI.Button (new Rect (Screen.width*pos, Screen.height*3*pos, Screen.width*buttonWidth, Screen.height*buttonHeight), "Quit")) {
 			Application.Quit();
