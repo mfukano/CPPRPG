@@ -50,6 +50,7 @@ public class Consumables : MonoBehaviour {
 		}
 
 		if (getRidOfIt == true) {
+			// Add to inventory
 			Destroy(gameObject);
 		}
 	}
