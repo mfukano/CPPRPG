@@ -29,5 +29,9 @@ public class Consumables_RG : Item {
 	void pickUpItem(){
 		//add the item into your inventory	
 	}
+
+	public override float getRestore() {
+			return this.restoreValue;
+	}
 	
 }

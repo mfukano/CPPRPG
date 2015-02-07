@@ -48,9 +48,10 @@ public class Item : MonoBehaviour {
 		
 		if (getRidOfIt == true) {
 			// add to inventory
-			//Item item = (Item)gameObject.GetComponent(typeof(Item));
 			addToInventory ();
-			Destroy(gameObject);
+			//Destroy(gameObject);
+			gameObject.SetActive(false);
+			getRidOfIt = false;
 		}
 	}
 
@@ -74,5 +75,15 @@ public class Item : MonoBehaviour {
 		Inventory i = (Inventory)player.GetComponent(typeof(Inventory));
 		i.inventory.Add (this);
 	}
+
+	public virtual float getRestore() {
+		return 0;
+	}
+
+	public virtual float getDamage() {
+		return 0;
+	}
+
+
 
 }

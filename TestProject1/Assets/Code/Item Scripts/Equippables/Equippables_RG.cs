@@ -8,9 +8,13 @@ public class Equippables_RG : Item {
 	
 	// Use this for initialization
 	void Start () {
-		rigidbody2D.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+		//rigidbody2D.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 		//database = GameObject.FindGameObjectWithTag ("Item Database").GetComponent<ItemDB>();
 		
+	}
+
+	public override float getDamage() {
+		return this.Damage;
 	}
 	
 }
