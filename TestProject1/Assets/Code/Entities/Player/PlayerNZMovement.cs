@@ -3,7 +3,8 @@ using System.Collections;
 
 public class PlayerNZMovement : MonoBehaviour {
 
-	public float speed;
+	public float playerSpeed;
+	public float bulletSpeed;
 	Animator anim;
 
 	void Start() {
@@ -26,15 +27,19 @@ public class PlayerNZMovement : MonoBehaviour {
 
 	void move() {
 		float input = Input.GetAxis ("Vertical");
-		rigidbody2D.AddForce (gameObject.transform.up * speed * input);
+		rigidbody2D.AddForce (gameObject.transform.up * playerSpeed * input);
 		rigidbody2D.angularVelocity = 0;
 	}
 
 	void updateAnim() {
-		if (Input.GetMouseButtonDown (0)) {
+		if (Input.GetMouseButtonDown (1)) {
 			anim.SetTrigger ("Attack");
 		}
+		if (Input.GetMouseButtonDown (0)) {
+			GameObject bullet = Instantiate(Resources.Load("bullet"), transform.position, transform.rotation) as GameObject;
+			bullet.rigidbody2D.AddForce (bullet.transform.up * (bulletSpeed + (playerSpeed * Input.GetAxis ("Vertical"))));
+		}
 		float input = Input.GetAxis ("Vertical");
-		anim.SetFloat ("Speed", speed * input);
+		anim.SetFloat ("Speed", playerSpeed * input);
 	}
 }
