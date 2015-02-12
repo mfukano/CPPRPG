@@ -7,30 +7,28 @@ public class Inventory : MonoBehaviour {
 	public List<Item> slots = new List<Item>();
 	public int slotsX, slotsY;
 	public GUISkin skin;
-	private ItemDB database;
+
 	private bool paused = false;
+	private bool showItemStats = false;
+	private string itemStats;
+
+	//will be used for rearranging items
+	private bool dragging;
+	private Item selectedItem;
 
 	// Use this for initialization
 	void Start () {
 		Time.timeScale = 1;
-		//database = GameObject.FindGameObjectWithTag ("Item Database").GetComponent<ItemDB>();
-		//inventory.Add (database.items[0]);
-		/*for (int i = 0; i < (slotsX*slotsY); i++) {
-			slots.Add (new Item());
-		}*/
 	}
 
 	void OnGUI () {
+		itemStats = "";
 		GUI.skin = skin;
 		if (paused) {
 			drawInventory();
-			/*for (int i=0; i<inventory.Count; i++) {
-				if (inventory[i].GetType() == typeof(Consumables_RG)) {
-					GUI.Label (new Rect (10, i*20, 200, 50), inventory[i].itemName +" "+ inventory[i].getRestore());
-				} else if (inventory[i].GetType() == typeof(Equippables_RG)) {
-					GUI.Label (new Rect (10, i*20, 200, 50), inventory[i].itemName +" "+ inventory[i].getDamage());
-				}
-			}*/
+			if (showItemStats) {
+				GUI.Box (new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y, 75, 75), itemStats);
+			}
 		}
 	}
 
@@ -43,9 +41,38 @@ public class Inventory : MonoBehaviour {
 				GUI.Box (slotRect, "", skin.GetStyle("inventory_skin"));
 				if(i < count) {
 					GUI.DrawTexture(slotRect, inventory[i].itemIcon);
+					if (slotRect.Contains(Event.current.mousePosition)) {
+						itemStats = createItemStats (inventory[i]);
+						showItemStats = true;
+						// if the item is left clicked
+						if (Event.current.button == 0) {
+							dragging = true;
+							selectedItem = inventory[i];
+						}
+					}
+				}
+				if (itemStats == "") {
+					showItemStats = false;
 				}
 				i++;
 			}
+		}
+	}
+
+	//constructs a string of item stats to display
+	string createItemStats (Item item) {
+		string stats = "<color=#ffffff>" + item.itemName + "\nWgt: " + item.itemWeight + "</color>";
+		if (item.getRestore() == 0) {
+			stats = stats + "<color=#ff7a88>\nDamage: " + item.getDamage() + "</color>";
+		} else {
+			stats = stats + "<color=#15ff00>\nRestore: " + item.getRestore() + "</color>";
+		}
+		return stats;
+	}
+
+	void removeFromInventory() {
+		for (int i=0; i<inventory.Count; i++) {
+			inventory[i] = new Item();
 		}
 	}
 
@@ -53,6 +80,10 @@ public class Inventory : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyUp (KeyCode.I)) {
 			paused = toggleInventory();
+		}
+		if (Input.GetKeyUp (KeyCode.R)) {
+			Debug.Log ("R pressed");
+			removeFromInventory();
 		}
 	}
 

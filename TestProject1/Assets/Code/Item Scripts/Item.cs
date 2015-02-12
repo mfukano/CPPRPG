@@ -45,7 +45,6 @@ public class Item : MonoBehaviour {
 
 			}
 		}
-		
 		if (getRidOfIt == true) {
 			// add to inventory
 			addToInventory ();
