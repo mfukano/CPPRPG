@@ -21,8 +21,11 @@ public class PlayerNZMovement : MonoBehaviour {
 	void FixedUpdate() {
 		Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		transform.rotation = Quaternion.LookRotation (Vector3.forward, mousePos - transform.position);
-		rigidbody2D.velocity = new Vector2 (Mathf.Lerp (0, Input.GetAxis ("Horizontal") * playerSpeed, 0.8f),
+		Vector2 velocity = new Vector2 (Mathf.Lerp (0, Input.GetAxis ("Horizontal") * playerSpeed, 0.8f),
 			                                Mathf.Lerp (0, Input.GetAxis ("Vertical") * playerSpeed, 0.8f));
+		velocity.Normalize();
+		velocity *= playerSpeed;
+		rigidbody2D.velocity = velocity;
 		rigidbody2D.angularVelocity = 0;
 
 	}
