@@ -14,11 +14,15 @@ public class Inventory : MonoBehaviour {
 
 	//will be used for rearranging items
 	private bool dragging;
+	private int prevIndex;
 	private Item selectedItem;
 
 	// Use this for initialization
 	void Start () {
 		Time.timeScale = 1;
+		for (int i = 0; i < slotsX*slotsY; i++) {
+			inventory.Add (new Item());
+		}
 	}
 
 	void OnGUI () {
@@ -30,24 +34,47 @@ public class Inventory : MonoBehaviour {
 				GUI.Box (new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y, 75, 75), itemStats);
 			}
 		}
+		if (dragging) {
+			GUI.DrawTexture(new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y, 32, 32), selectedItem.itemIcon);
+		}
 	}
 
 	void drawInventory() {
+		Event e = Event.current;
 		int i = 0;
 		int count = inventory.Count;
 		for (int y = 0; y < slotsY; y++) {
 			for (int x = 0; x < slotsX; x++) {
 				Rect slotRect = new Rect(x*32, y*32, 32, 32);
 				GUI.Box (slotRect, "", skin.GetStyle("inventory_skin"));
-				if(i < count) {
+				if(inventory[i].itemName != null) {
 					GUI.DrawTexture(slotRect, inventory[i].itemIcon);
-					if (slotRect.Contains(Event.current.mousePosition)) {
-						itemStats = createItemStats (inventory[i]);
-						showItemStats = true;
+					if (slotRect.Contains(e.mousePosition)) {
+						//show item stats on mouse hover
+						if (inventory[i].itemName != null) {
+							itemStats = createItemStats (inventory[i]);
+							showItemStats = true;
+						}
 						// if the item is left clicked
-						if (Event.current.button == 0) {
+						if (e.button == 0 && e.type == EventType.mouseDown && !dragging) {
 							dragging = true;
 							selectedItem = inventory[i];
+							prevIndex = i;
+							inventory[i] = new Item();
+						}
+						if (e.button == 0 && e.type == EventType.mouseUp && dragging) {
+							dragging = false;
+							inventory[prevIndex] = inventory[i];
+							inventory[i] = selectedItem;
+							selectedItem = null;
+						}
+					}
+				} else {
+					if (slotRect.Contains(e.mousePosition)) {
+						if (e.button == 0 && e.type == EventType.mouseUp && dragging) {
+							dragging = false;
+							inventory[i] = selectedItem;
+							selectedItem = null;
 						}
 					}
 				}

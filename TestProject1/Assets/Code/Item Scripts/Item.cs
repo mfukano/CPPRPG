@@ -16,9 +16,7 @@ public class Item : MonoBehaviour {
 	private bool pickUp = false;
 	private GameObject player = null;
 
-	public Item() {
-	
-	}
+	public Item() { }
 
 	public Item(string name, int ID, int weight) {
 		itemName = name;
@@ -72,7 +70,13 @@ public class Item : MonoBehaviour {
 
 	public void addToInventory() {
 		Inventory i = (Inventory)player.GetComponent(typeof(Inventory));
-		i.inventory.Add (this);
+		int count = i.inventory.Count;
+		for (int k = 0; k < count; k++) {
+			if (i.inventory[k].itemName == null) {
+				i.inventory[k] = this;
+				break;
+			}
+		}
 	}
 
 	public virtual float getRestore() {
