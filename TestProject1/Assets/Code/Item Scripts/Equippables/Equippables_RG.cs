@@ -5,6 +5,9 @@ using System.Collections.Generic;
 public class Equippables_RG : Item {
 	// equippables attributes
 	public float Damage;
+	public float BulletSpeed;
+	public float ReloadTimePerShot;
+	public float AmmoUsed;
 	
 	// Use this for initialization
 	void Start () {
