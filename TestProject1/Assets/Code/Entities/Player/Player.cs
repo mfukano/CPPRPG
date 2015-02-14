@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
 	public float playerSpeed;
 	public float bulletSpeed;
 	public bool bulletInitVel;
+	private float velMag;
 	Animator anim;
 
 	void Start() {
@@ -13,18 +14,28 @@ public class Player : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
+		float horiz = Input.GetAxisRaw ("Horizontal");
+		float vert = Input.GetAxisRaw ("Vertical");
 		Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		transform.rotation = Quaternion.LookRotation (Vector3.forward, mousePos - transform.position);
-		Vector2 velocity = new Vector2 (Mathf.Lerp (0, Input.GetAxis ("Horizontal") * playerSpeed, 0.8f),
-			                                Mathf.Lerp (0, Input.GetAxis ("Vertical") * playerSpeed, 0.8f));
-		velocity.Normalize();
+
+		Vector2 velocity = new Vector2 (Mathf.Lerp (0, horiz * playerSpeed, 0.8f),
+			                                Mathf.Lerp (0, vert * playerSpeed, 0.8f));
+		if ((horiz != 0) || (vert != 0)) {
+			velocity.Normalize ();
+		}
 		velocity *= playerSpeed;
 		rigidbody2D.velocity = velocity;
 		rigidbody2D.angularVelocity = 0;
 
 	}
 
+	void OnGUI() {
+		GUI.Label(new Rect(10, 10, 100, 20), velMag.ToString());
+	}
+	
 	void Update() {
+		velMag = rigidbody2D.velocity.magnitude;
 		if (Input.GetMouseButtonDown (1)) {
 			anim.SetTrigger ("Attack");
 		}
