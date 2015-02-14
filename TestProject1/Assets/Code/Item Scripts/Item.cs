@@ -2,7 +2,7 @@
 using System.Collections;
 
 [System.Serializable]
-public class Item : MonoBehaviour {
+public class Item {
 	// things that all items have
 	public string itemName;
 	public int itemID;
