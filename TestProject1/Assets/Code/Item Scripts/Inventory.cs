@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Inventory {
+public class Inventory : MonoBehaviour {
 	//inventory stuff
 	public List<Item> inventory = new List<Item>();
 	public int slotsX = 5;
