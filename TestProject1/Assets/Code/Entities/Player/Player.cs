@@ -46,7 +46,7 @@ public class Player : MonoBehaviour {
 			else
 				bullet.rigidbody2D.AddForce (bullet.transform.up * bulletSpeed);
 		}
-		float input = Input.GetAxis ("Vertical");
+		float input = Input.GetAxisRaw ("Vertical");
 		anim.SetFloat ("Speed", rigidbody2D.velocity.magnitude);
 	}
 }
