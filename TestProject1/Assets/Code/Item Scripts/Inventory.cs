@@ -3,14 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour {
+	//inventory stuff
 	public List<Item> inventory = new List<Item>();
-	public List<Item> slots = new List<Item>();
-	public int slotsX, slotsY;
-	public GUISkin skin;
+	//public List<Item> slots = new List<Item>();
+	public int slotsX, slotsY = 5;
+	public GUISkin skin, hand, holster;
+	private int handItem = 0;
+	private int pocketItem = 1;
 
+	// misc
 	private bool paused = false;
 	private bool showItemStats = false;
 	private string itemStats;
+	public GUIStyle style;
+
 
 	//will be used for rearranging items
 	private bool dragging;
@@ -20,9 +26,11 @@ public class Inventory : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Time.timeScale = 1;
-		for (int i = 0; i < slotsX*slotsY; i++) {
+		for (int i = 0; i < (slotsX*slotsY)+2; i++) {
 			inventory.Add (new Item());
 		}
+		style.normal.textColor = Color.white;
+		style.fontSize = 15;
 	}
 
 	void OnGUI () {
@@ -43,10 +51,30 @@ public class Inventory : MonoBehaviour {
 		Event e = Event.current;
 		int i = 0;
 		int count = inventory.Count;
-		for (int y = 0; y < slotsY; y++) {
+		int boxSize = 32;
+		Rect slotRect;
+		// inventory section names
+		GUI.Label (new Rect (((Screen.width / 2) - 80), ((Screen.height / 2) - 142), 500, 500), "Hand", style);
+		GUI.Label (new Rect (((Screen.width / 2) - 20), ((Screen.height / 2) - 142), 500, 500), "Holster", style);
+		GUI.Label (new Rect (((Screen.width / 2) - 80), ((Screen.height / 2) - 70), 500, 500), "Backpack", style);
+		// add row for hand and holster items
+		for (int y = 0; y < slotsY+1; y++) {
 			for (int x = 0; x < slotsX; x++) {
-				Rect slotRect = new Rect(x*32, y*32, 32, 32);
-				GUI.Box (slotRect, "", skin.GetStyle("inventory_skin"));
+				if (x == handItem && y == 0) {
+					slotRect = new Rect( ((Screen.width/2)-80)+(x*boxSize), ((Screen.height/2)-112)+(y*boxSize), boxSize, boxSize);
+					GUI.Box (slotRect, "", hand.GetStyle("inventory_hand_skin"));
+					//slotRect = new Rect( ((Screen.width/2)-80)+(x*boxSize), ((Screen.height/2)-80)+(y*boxSize), boxSize, boxSize);
+				} else if (x == pocketItem && y == 0) {
+					slotRect = new Rect( ((Screen.width/2)-48)+(x*boxSize), ((Screen.height/2)-112)+(y*boxSize), boxSize, boxSize);
+					GUI.Box (slotRect, "", holster.GetStyle("inventory_holster_skin"));
+					//slotRect = new Rect( ((Screen.width/2)-80)+(x*boxSize), ((Screen.height/2)-80)+(y*boxSize), boxSize, boxSize);
+				} else if (y != 0){
+					slotRect = new Rect( ((Screen.width/2)-80)+(x*boxSize), ((Screen.height/2)-80)+(y*boxSize), boxSize, boxSize);
+					GUI.Box (slotRect, "", skin.GetStyle("inventory_skin"));
+				} else {
+					continue;
+				}
+
 				if(inventory[i].itemName != null) {
 					GUI.DrawTexture(slotRect, inventory[i].itemIcon);
 					if (slotRect.Contains(e.mousePosition)) {
