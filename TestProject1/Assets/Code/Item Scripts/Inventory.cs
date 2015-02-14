@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Inventory : MonoBehaviour {
+public class Inventory {
 	//inventory stuff
 	public List<Item> inventory = new List<Item>();
-	//public List<Item> slots = new List<Item>();
-	public int slotsX, slotsY = 5;
+	public int slotsX = 5;
+	public int slotsY = 5;
 	public GUISkin skin, hand, holster;
 	private int handItem = 0;
 	private int pocketItem = 1;
