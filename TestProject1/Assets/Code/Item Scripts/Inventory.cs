@@ -17,7 +17,6 @@ public class Inventory : MonoBehaviour {
 	private string itemStats;
 	public GUIStyle style;
 
-
 	//will be used for rearranging items
 	private bool dragging;
 	private int prevIndex;

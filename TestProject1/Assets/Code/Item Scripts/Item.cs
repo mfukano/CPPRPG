@@ -16,8 +16,10 @@ public class Item : MonoBehaviour {
 	private bool pickUp = false;
 	private GameObject player = null;
 
+	// empty item constructor for initilization in the inventory
 	public Item() { }
 
+	// actual item constructor with contributes
 	public Item(string name, int ID, int weight) {
 		itemName = name;
 		itemID = ID;
@@ -68,6 +70,7 @@ public class Item : MonoBehaviour {
 		}
 	}
 
+	//get player inventory and add the item to it
 	public void addToInventory() {
 		Inventory i = (Inventory)player.GetComponent(typeof(Inventory));
 		int count = i.inventory.Count;
@@ -79,6 +82,7 @@ public class Item : MonoBehaviour {
 		}
 	}
 
+	//placeholder functions which are overrode in Consumables and Equippables
 	public virtual float getRestore() {
 		return 0;
 	}
