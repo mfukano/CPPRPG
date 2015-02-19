@@ -46,6 +46,7 @@ public class Inventory : MonoBehaviour {
 		}
 	}
 
+	// function that draws the inventory with item icons and enables dragging/dropping/swapping
 	void drawInventory() {
 		Event e = Event.current;
 		int i = 0;
@@ -53,9 +54,9 @@ public class Inventory : MonoBehaviour {
 		int boxSize = 32;
 		Rect slotRect;
 		// inventory section names
-		GUI.Label (new Rect (((Screen.width / 2) - 80), ((Screen.height / 2) - 142), 500, 500), "Hand", style);
-		GUI.Label (new Rect (((Screen.width / 2) - 20), ((Screen.height / 2) - 142), 500, 500), "Holster", style);
-		GUI.Label (new Rect (((Screen.width / 2) - 80), ((Screen.height / 2) - 70), 500, 500), "Backpack", style);
+		GUI.Label (new Rect (((Screen.width/2)-80), ((Screen.height/2)-142), 500, 500), "Hand", style);
+		GUI.Label (new Rect (((Screen.width/2)-20), ((Screen.height/2)-142), 500, 500), "Holster", style);
+		GUI.Label (new Rect (((Screen.width/2)-80), ((Screen.height/2)-70), 500, 500), "Backpack", style);
 		// add row for hand and holster items
 		for (int y = 0; y < slotsY+1; y++) {
 			for (int x = 0; x < slotsX; x++) {
@@ -113,6 +114,16 @@ public class Inventory : MonoBehaviour {
 							}
 							selectedItem = null;
 						}
+					} else if (e.button == 0 && e.type == EventType.mouseUp && dragging) {
+						// dragging the item out of the inventory
+						if (e.mousePosition.x < ((Screen.width/2)-80) 
+						    || e.mousePosition.x > (((Screen.width/2)-80)+(boxSize*slotsX))
+						    || e.mousePosition.y < ((Screen.height/2)-112)
+						    || e.mousePosition.y > (((Screen.height/2)-112)+(boxSize*slotsY)) )
+						{
+							dragging = false;
+							removeFromInventory (selectedItem);
+						}
 					}
 				}
 				if (itemStats == "") {
@@ -134,20 +145,18 @@ public class Inventory : MonoBehaviour {
 		return stats;
 	}
 
-	void removeFromInventory() {
-		for (int i=0; i<inventory.Count; i++) {
-			inventory[i] = new Item();
-		}
+	void removeFromInventory (Item item) {
+		float x = Input.mousePosition.x;
+		float y = Input.mousePosition.y;
+		Vector3 newPos = Camera.main.ScreenToWorldPoint (new Vector3(x, y, 1));
+		item.gameObject.transform.position = newPos;
+		item.gameObject.SetActive (true);
 	}
 
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyUp (KeyCode.I)) {
 			paused = toggleInventory();
-		}
-		if (Input.GetKeyUp (KeyCode.R)) {
-			Debug.Log ("R pressed");
-			removeFromInventory();
 		}
 	}
 
