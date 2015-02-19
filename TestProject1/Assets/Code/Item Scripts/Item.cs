@@ -74,7 +74,14 @@ public class Item : MonoBehaviour {
 	public void addToInventory() {
 		Inventory i = (Inventory)player.GetComponent(typeof(Inventory));
 		int count = i.inventory.Count;
-		for (int k = 0; k < count; k++) {
+		int k;
+		// put consumable items into inventory and not hand/holster
+		if (this.getRestore() == 0) {
+			k = 0;
+		} else {
+			k = 2;
+		}
+		for ( ; k < count; k++) {
 			if (i.inventory[k].itemName == null) {
 				i.inventory[k] = this;
 				break;

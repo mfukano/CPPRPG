@@ -62,11 +62,9 @@ public class Inventory : MonoBehaviour {
 				if (x == handItem && y == 0) {
 					slotRect = new Rect( ((Screen.width/2)-80)+(x*boxSize), ((Screen.height/2)-112)+(y*boxSize), boxSize, boxSize);
 					GUI.Box (slotRect, "", hand.GetStyle("inventory_hand_skin"));
-					//slotRect = new Rect( ((Screen.width/2)-80)+(x*boxSize), ((Screen.height/2)-80)+(y*boxSize), boxSize, boxSize);
 				} else if (x == pocketItem && y == 0) {
 					slotRect = new Rect( ((Screen.width/2)-48)+(x*boxSize), ((Screen.height/2)-112)+(y*boxSize), boxSize, boxSize);
 					GUI.Box (slotRect, "", holster.GetStyle("inventory_holster_skin"));
-					//slotRect = new Rect( ((Screen.width/2)-80)+(x*boxSize), ((Screen.height/2)-80)+(y*boxSize), boxSize, boxSize);
 				} else if (y != 0){
 					slotRect = new Rect( ((Screen.width/2)-80)+(x*boxSize), ((Screen.height/2)-80)+(y*boxSize), boxSize, boxSize);
 					GUI.Box (slotRect, "", skin.GetStyle("inventory_skin"));
@@ -82,7 +80,7 @@ public class Inventory : MonoBehaviour {
 							itemStats = createItemStats (inventory[i]);
 							showItemStats = true;
 						}
-						// if the item is left clicked
+						// if the item is left clicked and dragged
 						if (e.button == 0 && e.type == EventType.mouseDown && !dragging) {
 							dragging = true;
 							selectedItem = inventory[i];
@@ -91,8 +89,15 @@ public class Inventory : MonoBehaviour {
 						}
 						if (e.button == 0 && e.type == EventType.mouseUp && dragging) {
 							dragging = false;
-							inventory[prevIndex] = inventory[i];
-							inventory[i] = selectedItem;
+							// make sure a consumable is not being placed into hand/holster
+							if (selectedItem.getRestore() != 0 && (i == 0 || i == 1)) {
+								inventory[prevIndex] = selectedItem;
+							} else if (inventory[i].getRestore() != 0 && (prevIndex == 0 || prevIndex == 1)) {
+								inventory[prevIndex] = selectedItem;
+							} else {
+								inventory[prevIndex] = inventory[i];
+								inventory[i] = selectedItem;
+							}
 							selectedItem = null;
 						}
 					}
@@ -100,7 +105,12 @@ public class Inventory : MonoBehaviour {
 					if (slotRect.Contains(e.mousePosition)) {
 						if (e.button == 0 && e.type == EventType.mouseUp && dragging) {
 							dragging = false;
-							inventory[i] = selectedItem;
+							// make sure a consumable is not being placed into hand/holster
+							if (selectedItem.getRestore() != 0 && (i == 0 || i == 1)) {
+								inventory[prevIndex] = selectedItem;
+							} else {
+								inventory[i] = selectedItem;
+							}
 							selectedItem = null;
 						}
 					}
