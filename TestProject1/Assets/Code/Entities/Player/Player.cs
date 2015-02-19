@@ -1,16 +1,26 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Player : MonoBehaviour {
+
+	public float maxHealth = 1000;
+	public float startHealth = 800;
+	public float currentHealth;
+	public Slider healthBar;
+	public Slider energyBar;
 
 	public float playerSpeed;
 	public float bulletSpeed;
 	public bool bulletInitVel;
 	private float velMag;
+	private bool isDead;
 	Animator anim;
 
 	void Start() {
 		anim = GetComponent<Animator>();
+		currentHealth = startHealth;
+		healthBar.value = currentHealth;
 	}
 
 	void FixedUpdate() {
@@ -27,6 +37,30 @@ public class Player : MonoBehaviour {
 		velocity *= playerSpeed;
 		rigidbody2D.velocity = velocity;
 		rigidbody2D.angularVelocity = 0;
+
+	}
+
+	public void healDamage (float heal_val) {
+		if (currentHealth != maxHealth) {
+			currentHealth += heal_val;
+			healthBar.value = currentHealth;
+				}
+
+	}
+
+
+	public void takeDamage (float dmg_val) {
+		currentHealth -= dmg_val;
+		healthBar.value = currentHealth;
+
+		if (currentHealth <= 0) {
+			Death();
+				}
+		}
+
+	void Death(){
+		isDead = true;
+		playerSpeed = 0;
 
 	}
 

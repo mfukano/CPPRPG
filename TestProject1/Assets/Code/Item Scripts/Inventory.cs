@@ -88,6 +88,9 @@ public class Inventory : MonoBehaviour {
 							prevIndex = i;
 							inventory[i] = new Item();
 						}
+						else if (e.button == 1 && e.type == EventType.mouseDown && (inventory[i].getRestore() != 0)){
+							removeAndHeal(i);
+						}
 						if (e.button == 0 && e.type == EventType.mouseUp && dragging) {
 							dragging = false;
 							// make sure a consumable is not being placed into hand/holster
@@ -151,6 +154,12 @@ public class Inventory : MonoBehaviour {
 		Vector3 newPos = Camera.main.ScreenToWorldPoint (new Vector3(x, y, 1));
 		item.gameObject.transform.position = newPos;
 		item.gameObject.SetActive (true);
+	}
+
+	void removeAndHeal (int i) {
+		float restoreValue = inventory[i].getRestore ();
+		gameObject.GetComponent<Player>().healDamage(restoreValue);
+		inventory[i] = new Item();
 	}
 
 	// Update is called once per frame
