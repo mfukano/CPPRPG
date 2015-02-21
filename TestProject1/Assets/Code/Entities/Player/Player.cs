@@ -74,7 +74,7 @@ public class Player : MonoBehaviour {
 			anim.SetTrigger ("Attack");
 		}
 		if (Input.GetMouseButtonDown (0) && Time.timeScale == 1) {
-			GameObject bullet = Instantiate(Resources.Load("bullet"), transform.position, transform.rotation) as GameObject;
+			GameObject bullet = Instantiate(Resources.Load("Prefabs/bullet"), transform.position, transform.rotation) as GameObject;
 			if (bulletInitVel)
 				bullet.rigidbody2D.AddForce (bullet.transform.up * (bulletSpeed + (playerSpeed * Input.GetAxis ("Vertical"))));
 			else

@@ -33,17 +33,23 @@ public class Enemy : MonoBehaviour {
 	
 	public void takeDamage (float dmg_val) {
 		currentHealth -= dmg_val;
-		
 		if (currentHealth <= 0) {
 			Death();
 		}
 	}
 	
 	void Death(){
-		//TODO: Remove charater here
 		isDead = true;
 		enemySpeed = 0;
+		Destroy (gameObject);
 		
+	}
+
+	void OnCollisionEnter2D(Collision2D col) {
+		if (col.gameObject.tag == "Bullet") {
+			takeDamage(200);
+			Destroy(col.gameObject);
+		}
 	}
 
 	
