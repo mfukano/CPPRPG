@@ -50,6 +50,10 @@ public class Enemy : MonoBehaviour {
 			takeDamage(200);
 			Destroy(col.gameObject);
 		}
+		if (col.gameObject.tag == "Sword") {
+			takeDamage(350);
+			//Destroy(col.gameObject);
+		}
 	}
 
 	
