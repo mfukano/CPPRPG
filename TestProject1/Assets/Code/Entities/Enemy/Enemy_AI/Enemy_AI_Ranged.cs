@@ -21,6 +21,8 @@ public class Enemy_AI_Ranged : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// Going to try to make the enemy look at the player
-
+		DoISeePlayer = true;
+		TargetLocation = TargetPlayer.transform;
+		Owner.transform.rotation = Quaternion.LookRotation (Vector3.forward, TargetLocation.position - transform.position);
 	}
 }
