@@ -9,6 +9,7 @@ public class Chest : MonoBehaviour {
 	public static GameObject[] myObjects;
 	public static int numSpawned = 0;
 	public static int numToSpawn = 14;
+	public int numberOfPrefabs;
 
 	private string labelText = "Press E to open chest";
 	private bool Highlighted;
@@ -78,7 +79,7 @@ public class Chest : MonoBehaviour {
 
 
 	public void spawnObjects(){
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < numberOfPrefabs; i++) {
 			Vector3 center = transform.position;
 			Vector3 pos = ranCircle (center, 50.0f);
 			int prefabIndex = UnityEngine.Random.Range (0, 13);
