@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Chest : MonoBehaviour {
 
 	public Sprite closedChest, openedChest; // Sprites
 	private SpriteRenderer spriteRenderer;
-	public GameObject prefab;
+	public static GameObject[] myObjects;
+	public static int numSpawned = 0;
+	public static int numToSpawn = 14;
 
 	private string labelText = "Press E to open chest";
 	private bool Highlighted;
@@ -14,17 +17,14 @@ public class Chest : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		myObjects = Resources.LoadAll<GameObject>("Prefabs/Items/Food");
 		spriteRenderer = gameObject.GetComponent<SpriteRenderer> ();
-		GameObject prefab = Resources.Load ("Apple.prefab") as GameObject;
-		//GameObject go = (GameObject)Instantiate(Resources.Load("Apple.prefab")); 
-		//GameObject testPrefab = (GameObject.Instantiate (Resources.LoadAssetAtPath ("Assets/Resources/Prefabs/Items/Food/Apple.prefab")));
-		//object[] chestSprites = AssetDatabase.LoadAllAssetsAtPath ("Assets/Resources/chests.png");
 	}
 
 	public void OnGUI(){
 		if(Highlighted == true){
 			//GUI.Box(Rect(140,Screen.height-50,Screen.width-300,120),(labelText));
-			GUI.Box (new Rect (680, 40, 200, 50), labelText);
+			GUI.Box (new Rect (Screen.width/2, 40, 200, 50), labelText);
 		}
 	}
 	
@@ -38,14 +38,16 @@ public class Chest : MonoBehaviour {
 					} else {
 						spriteRenderer.sprite = closedChest;
 					}
-			    Instantiate(prefab,new Vector3(208, -150, 0), Quaternion.Euler(0, 180, 0));
+				spawnObjects();
 				openChest = false;
-					empty = true;
+				empty = true;
 				}
 			}	
 		}
-	
+
 	}
+
+
 
 	public void OnTriggerEnter2D(Collider2D col) {
 		if (col.gameObject.tag == "Player") {
@@ -64,4 +66,24 @@ public class Chest : MonoBehaviour {
 		}
 	}
 
+
+	Vector3 ranCircle ( Vector3 center ,   float radius  ){
+		float ang = Random.value * 360;
+		Vector3 pos;
+		pos.x = center.x + radius * Mathf.Sin(ang * Mathf.Deg2Rad);
+		pos.y = center.y + radius * Mathf.Cos(ang * Mathf.Deg2Rad);
+		pos.z = center.z + 5;
+		return pos;
+	}
+
+
+	public void spawnObjects(){
+		for (int i = 0; i < 3; i++) {
+			Vector3 center = transform.position;
+			Vector3 pos = ranCircle (center, 50.0f);
+			int prefabIndex = UnityEngine.Random.Range (0, 13);
+			Instantiate (myObjects [prefabIndex], pos, Quaternion.Euler(0, 180, 0));
+		}
+	}
+     
 }
