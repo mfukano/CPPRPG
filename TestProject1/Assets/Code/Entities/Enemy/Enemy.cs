@@ -23,12 +23,12 @@ public class Enemy : MonoBehaviour {
 		isDead = false;
 
 		// Create AI
-		myAI = new Enemy_AI_Ranged ();
-		myAI.Owner = this;
+		// myAI = new Enemy_AI_Ranged ();
+		// myAI.Owner = this;
 	}
 	
 	void FixedUpdate() {
-
+		rigidbody2D.angularVelocity = 0;
 	}
 	
 	public void takeDamage (float dmg_val) {
