@@ -67,12 +67,12 @@ public class Player : MonoBehaviour {
 	void OnGUI() {
 		Inventory i = (Inventory)gameObject.GetComponent(typeof(Inventory));
 		GUI.Label(new Rect(40, 10, 100, 20), velMag.ToString());
-		GUI.Label(new Rect(40, 30, 100, 20), i.inventory [0].name);
+		GUI.Label(new Rect(40, 30, 100, 20), i.inventory [0].itemName);
 	}
 	
 	void Update() {
 		Inventory inv = (Inventory)gameObject.GetComponent(typeof(Inventory));
-		string currentGun = inv.inventory [0].name;
+		string currentGun = inv.inventory [0].itemName;
 		velMag = rigidbody2D.velocity.magnitude;
 		GameObject projectile;
 		SMGSlow++;
@@ -104,5 +104,11 @@ public class Player : MonoBehaviour {
 		}
 		float input = Input.GetAxisRaw ("Vertical");
 		anim.SetFloat ("Speed", rigidbody2D.velocity.magnitude);
+
+		if (Input.GetKeyUp (KeyCode.Q)) {
+			Item tmp = inv.inventory[0];
+			inv.inventory[0] = inv.inventory[1];
+			inv.inventory[1] = tmp;
+		}
 	}
 }
