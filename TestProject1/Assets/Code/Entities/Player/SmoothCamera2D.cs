@@ -5,18 +5,25 @@ public class SmoothCamera2D : MonoBehaviour {
 
 	public int ratio;
 	private Map myMap;
-	
+	private GameObject myPlayer;
+	public float dampTime = 0.2f;
+	private Vector3 velocity = Vector3.zero;
+	private Vector3 cameraTruePos;
+	public Transform target;
+
+	void Awake () {
+		myPlayer = GameObject.FindGameObjectWithTag ("Player");
+		target = myPlayer.transform;
+		transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
+	}
+
+
 	// Use this for initialization
 	void Start () {
 		camera.orthographicSize = Screen.height / (2 * ratio);
 		
 		myMap = (Map)GameObject.FindObjectOfType (typeof(Map));
 	}
-	
-	public float dampTime = 0.2f;
-	private Vector3 velocity = Vector3.zero;
-	private Vector3 cameraTruePos;
-	public Transform target;
 	
 	// Update is called once per frame
 	//	void Update () 
