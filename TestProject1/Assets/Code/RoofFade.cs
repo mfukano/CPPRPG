@@ -14,7 +14,7 @@ public class RoofFade : MonoBehaviour {
 		int i = 0;
 		while (i < children) {
 			Transform tile = gameObject.transform.GetChild(i);
-			if(tile.name == "RoofTile") {
+			if(tile.name.StartsWith("RoofTile")) {
 				Color color = tile.renderer.material.color;
 				color.a = roofAlpha;
 				tile.renderer.material.color = color;
