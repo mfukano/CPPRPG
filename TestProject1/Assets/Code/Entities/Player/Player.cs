@@ -15,6 +15,7 @@ public class Player : MonoBehaviour {
 	public bool bulletInitVel;
 	private float velMag;
 	private bool isDead;
+	private int SMGSlow=0;
 	Animator anim;
 
 	void Start() {
@@ -70,10 +71,11 @@ public class Player : MonoBehaviour {
 	}
 	
 	void Update() {
-		Inventory i = (Inventory)gameObject.GetComponent(typeof(Inventory));
-		string currentGun = i.inventory [0].name;
+		Inventory inv = (Inventory)gameObject.GetComponent(typeof(Inventory));
+		string currentGun = inv.inventory [0].name;
 		velMag = rigidbody2D.velocity.magnitude;
 		GameObject projectile;
+		SMGSlow++;
 
 		if (Input.GetMouseButtonDown (1)) {
 			anim.SetTrigger ("Attack");
@@ -85,13 +87,20 @@ public class Player : MonoBehaviour {
 				projectile.rigidbody2D.AddForce (projectile.transform.up * (bulletSpeed + (playerSpeed * Input.GetAxis ("Vertical"))));
 					//projectile.rigidbody2D.AddForce (bullet.transform.up * bulletSpeed);
 				break;
+			case("SMG"):
+				break;
 			default:
 				projectile = Instantiate(Resources.Load("Prefabs/bullet"), transform.position, transform.rotation) as GameObject;
 				projectile.rigidbody2D.AddForce (projectile.transform.up * (bulletSpeed + (playerSpeed * Input.GetAxis ("Vertical"))));
 					//projectile.rigidbody2D.AddForce (bullet.transform.up * bulletSpeed);
 				break;
 			}
+		}
+		if (Input.GetMouseButton (0) && Time.timeScale == 1 && currentGun == "SMG" && SMGSlow%10 == 0) {
 
+			projectile = Instantiate(Resources.Load("Prefabs/bullet"), transform.position, transform.rotation) as GameObject;
+			projectile.rigidbody2D.AddForce (projectile.transform.up * (bulletSpeed + (playerSpeed * Input.GetAxis ("Vertical"))));
+			//projectile.rigidbody2D.AddForce (bullet.transform.up * bulletSpeed);
 		}
 		float input = Input.GetAxisRaw ("Vertical");
 		anim.SetFloat ("Speed", rigidbody2D.velocity.magnitude);
