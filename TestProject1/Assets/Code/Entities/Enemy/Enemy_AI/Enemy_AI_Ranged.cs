@@ -14,7 +14,7 @@ public class Enemy_AI_Ranged : MonoBehaviour {
 
 	// Visual Variables
 	public float fieldOfViewAngle = 110;
-	public int fieldOfViewDistance = 100;
+	public int fieldOfViewDistance = 1000; // This is the maximum, based on the CircleCollider2D
 	public bool playerInSight;
 	public Vector3 personalLastKnownLocation;
 	private GameObject player;
@@ -24,6 +24,11 @@ public class Enemy_AI_Ranged : MonoBehaviour {
 	void Awake()
 	{
 		player = GameObject.FindGameObjectWithTag ("Player");
+		foreach (CircleCollider2D col in GetComponents<CircleCollider2D>()) 
+		{
+			if(!col.isTrigger) continue;
+			fieldOfViewDistance = (int)col.radius;
+		}
 	}
 
 	// Use this for initialization
@@ -75,18 +80,18 @@ public class Enemy_AI_Ranged : MonoBehaviour {
 
 			RaycastHit2D hit = 
 				Physics2D.Raycast(transform.position, direction.normalized, fieldOfViewDistance, layerToIgnore);
-			Debug.Log (hit.distance);
+			if (hit) {
+				if(hit.collider.gameObject == player)
+				{
+					playerInSight = true;
 
-			if(hit.collider.gameObject == player)
-			{
-				playerInSight = true;
+					// Set last global sighting is player current position
+					LastKnownLocation = player.transform.position;
 
-				// Set last global sighting is player current position
-				LastKnownLocation = player.transform.position;
-
-				Debug.Log("See the player!");
+					//Debug.Log("See the player!");
+				}
+				gameObject.layer = oldLayer;
 			}
-			gameObject.layer = oldLayer;
 		}
 
 		// Code here can be used to check animation frames to see if he is sneaking.
@@ -104,5 +109,12 @@ public class Enemy_AI_Ranged : MonoBehaviour {
 				// ... set the last personal sighting of the player to the player's current position.
 				personalLastSighting = player.transform.position;
 		}*/
+	}
+
+	void OnTriggerExit2D(Collider2D other)
+	{
+		if (other.gameObject != player)
+			return;
+		playerInSight = false;
 	}
 }
