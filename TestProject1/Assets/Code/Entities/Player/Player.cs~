@@ -45,6 +45,7 @@ public class Player : MonoBehaviour {
 			currentHealth += heal_val;
 			healthBar.value = currentHealth;
 				}
+
 	}
 
 
@@ -64,34 +65,20 @@ public class Player : MonoBehaviour {
 	}
 
 	void OnGUI() {
-		Inventory i = (Inventory)gameObject.GetComponent(typeof(Inventory));
-		GUI.Label(new Rect(40, 10, 100, 20), velMag.ToString());
-		GUI.Label(new Rect(40, 30, 100, 20), i.inventory [0].name);
+		GUI.Label(new Rect(10, 10, 100, 20), velMag.ToString());
 	}
 	
 	void Update() {
-		Inventory i = (Inventory)gameObject.GetComponent(typeof(Inventory));
-		string currentGun = i.inventory [0].name;
 		velMag = rigidbody2D.velocity.magnitude;
-		GameObject projectile;
-
 		if (Input.GetMouseButtonDown (1)) {
 			anim.SetTrigger ("Attack");
 		}
-		if (Input.GetMouseButtonDown (0) && Time.timeScale == 1 && currentGun != null) {
-			switch(currentGun) {
-			case("Laser_Pistol"):
-				projectile = Instantiate(Resources.Load("Prefabs/Laser"), transform.position, transform.rotation) as GameObject;
-				projectile.rigidbody2D.AddForce (projectile.transform.up * (bulletSpeed + (playerSpeed * Input.GetAxis ("Vertical"))));
-					//projectile.rigidbody2D.AddForce (bullet.transform.up * bulletSpeed);
-				break;
-			default:
-				projectile = Instantiate(Resources.Load("Prefabs/bullet"), transform.position, transform.rotation) as GameObject;
-				projectile.rigidbody2D.AddForce (projectile.transform.up * (bulletSpeed + (playerSpeed * Input.GetAxis ("Vertical"))));
-					//projectile.rigidbody2D.AddForce (bullet.transform.up * bulletSpeed);
-				break;
-			}
-
+		if (Input.GetMouseButtonDown (0) && Time.timeScale == 1) {
+			GameObject bullet = Instantiate(Resources.Load("Prefabs/bullet"), transform.position, transform.rotation) as GameObject;
+			if (bulletInitVel)
+				bullet.rigidbody2D.AddForce (bullet.transform.up * (bulletSpeed + (playerSpeed * Input.GetAxis ("Vertical"))));
+			else
+				bullet.rigidbody2D.AddForce (bullet.transform.up * bulletSpeed);
 		}
 		float input = Input.GetAxisRaw ("Vertical");
 		anim.SetFloat ("Speed", rigidbody2D.velocity.magnitude);
