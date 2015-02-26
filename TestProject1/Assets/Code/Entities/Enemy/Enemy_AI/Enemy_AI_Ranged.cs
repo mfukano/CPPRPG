@@ -46,6 +46,12 @@ public class Enemy_AI_Ranged : MonoBehaviour {
 			TargetLocation = TargetPlayer.transform;
 			Owner.transform.rotation =
 				Quaternion.LookRotation (Vector3.forward, TargetLocation.position - transform.position);
+		} else 
+		{
+			Vector2 dir = personalLastKnownLocation - transform.position;
+			transform.rotation = Quaternion.LookRotation (Vector3.forward, dir);
+			// TODO: Put in fixed update
+			rigidbody2D.velocity = dir.normalized * Owner.enemySpeed; //* Time.deltaTime;
 		}
 
 		// Seeing the player
