@@ -48,6 +48,7 @@ public class Enemy_AI_Ranged : MonoBehaviour {
 				Quaternion.LookRotation (Vector3.forward, TargetLocation.position - transform.position);
 		} else 
 		{
+			// Moving to last known player location.
 			Vector2 dir = personalLastKnownLocation - transform.position;
 			transform.rotation = Quaternion.LookRotation (Vector3.forward, dir);
 			// TODO: Put in fixed update
