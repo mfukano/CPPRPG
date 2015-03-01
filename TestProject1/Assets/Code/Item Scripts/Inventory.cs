@@ -11,6 +11,10 @@ public class Inventory : MonoBehaviour {
 	private int handItem = 0;
 	private int pocketItem = 1;
 
+	//item stats variables
+	public int statsX = 100;
+	public int statsY = 75;
+
 	// misc
 	private bool paused = false;
 	private bool showItemStats = false;
@@ -38,11 +42,18 @@ public class Inventory : MonoBehaviour {
 		if (paused) {
 			drawInventory();
 			if (showItemStats) {
-				GUI.Box (new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y, 75, 75), itemStats);
+				GUI.Box (new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y, statsX, statsY), itemStats);
 			}
 		}
 		if (dragging) {
 			GUI.DrawTexture(new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y, 32, 32), selectedItem.itemIcon);
+		}
+		if (inventory[handItem] != null) {
+			Rect currEquipped = new Rect(20, Screen.height - 68, 48, 48);
+			GUI.DrawTexture (currEquipped, inventory[handItem].itemIcon);
+			if (currEquipped.Contains(Event.current.mousePosition)) {
+				GUI.Box (new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y, statsX, statsY), createItemStats(inventory[handItem]));
+			}
 		}
 	}
 
