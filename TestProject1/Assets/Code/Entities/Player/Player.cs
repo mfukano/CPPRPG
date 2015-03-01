@@ -66,8 +66,8 @@ public class Player : MonoBehaviour {
 
 	void OnGUI() {
 		Inventory i = (Inventory)gameObject.GetComponent(typeof(Inventory));
-		GUI.Label(new Rect(40, 10, 100, 20), velMag.ToString());
-		GUI.Label(new Rect(40, 30, 100, 20), i.inventory [0].itemName);
+		//GUI.Label(new Rect(40, 10, 100, 20), velMag.ToString());
+		//GUI.Label(new Rect(40, 30, 100, 20), i.inventory [0].itemName);
 	}
 	
 	void Update() {
@@ -81,6 +81,7 @@ public class Player : MonoBehaviour {
 			anim.SetTrigger ("Attack");
 		}
 		if (Input.GetMouseButtonDown (0) && Time.timeScale == 1 && currentGun != null) {
+			inv.ammoCount -= (int)inv.inventory[0].getAmmoPerShot();
 			switch(currentGun) {
 			case("Shotgun"):
 				Transform sg1 = transform.Find("shotgun1");
@@ -117,7 +118,7 @@ public class Player : MonoBehaviour {
 			}
 		}
 		if (Input.GetMouseButton (0) && Time.timeScale == 1 && currentGun == "SMG" && SMGSlow%10 == 0) {
-
+			inv.ammoCount -= (int)inv.inventory[0].getAmmoPerShot();
 			projectile = Instantiate(Resources.Load("Prefabs/bullet"), transform.position, transform.rotation) as GameObject;
 			projectile.rigidbody2D.AddForce (projectile.transform.up * (bulletSpeed + (playerSpeed * Input.GetAxis ("Vertical"))));
 		}

@@ -10,6 +10,7 @@ public class Inventory : MonoBehaviour {
 	public GUISkin skin, hand, holster;
 	private int handItem = 0;
 	private int pocketItem = 1;
+	public int ammoCount = 1000;
 
 	//item stats variables
 	public int statsX = 100;
@@ -51,6 +52,10 @@ public class Inventory : MonoBehaviour {
 		if (inventory[handItem] != null) {
 			Rect currEquipped = new Rect(20, Screen.height - 68, 48, 48);
 			GUI.DrawTexture (currEquipped, inventory[handItem].itemIcon);
+			// if the equipped item is ranged
+			if (inventory[handItem].getAmmoPerShot() != 0) {
+				GUI.Label (new Rect(20, Screen.height - 88, 48, 48), ammoCount.ToString());
+			}
 			if (currEquipped.Contains(Event.current.mousePosition)) {
 				GUI.Box (new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y, statsX, statsY), createItemStats(inventory[handItem]));
 			}

@@ -7,7 +7,6 @@ public class Equippables : Item {
 	public float Damage;
 	public float BulletSpeed;
 	public float ReloadTimePerShot;
-	public float AmmoUsed;
 	
 	// Use this for initialization
 	void Start () {
@@ -17,5 +16,9 @@ public class Equippables : Item {
 	public override float getDamage() {
 		return this.Damage;
 	}
-	
+
+	public override float getAmmoPerShot() {
+		return 0;
+	}
+
 }

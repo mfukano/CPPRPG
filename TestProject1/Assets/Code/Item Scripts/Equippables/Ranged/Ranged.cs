@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Ranged : MonoBehaviour {
+public class Ranged : Equippables {
 	public float maxRange;
+	public float AmmoPerShot;
 	// Use this for initialization
 	void Start () {
 	
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
+	public override float getAmmoPerShot() {
+		return this.AmmoPerShot;
 	}
+
 }
