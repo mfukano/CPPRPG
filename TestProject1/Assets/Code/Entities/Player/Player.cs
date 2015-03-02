@@ -6,13 +6,19 @@ public class Player : MonoBehaviour {
 
 	public float maxHealth = 1000;
 	public float startHealth = 800;
-	public float currentHealth;
+	public float maxEnergy = 100;
+
+	public float startEnergy = 100;
+	public float currentHealth, currentEnergy;
+
+	public float playerSpeed;
+
 	public Slider healthBar;
 	public Slider energyBar;
 
-	public float playerSpeed;
 	public float bulletSpeed;
 	public bool bulletInitVel;
+
 	private float velMag;
 	private bool isDead;
 	private int SMGSlow=0;
@@ -21,7 +27,9 @@ public class Player : MonoBehaviour {
 	void Start() {
 		anim = GetComponent<Animator>();
 		currentHealth = startHealth;
+		//currentEnergy = startEnergy;
 		healthBar.value = currentHealth;
+		energyBar.value = currentEnergy;
 	}
 
 	void FixedUpdate() {
@@ -38,6 +46,7 @@ public class Player : MonoBehaviour {
 		velocity *= playerSpeed;
 		rigidbody2D.velocity = velocity;
 		rigidbody2D.angularVelocity = 0;
+
 
 	}
 
@@ -63,11 +72,11 @@ public class Player : MonoBehaviour {
 		playerSpeed = 0;
 
 	}
-
+	
 	void OnGUI() {
 		Inventory i = (Inventory)gameObject.GetComponent(typeof(Inventory));
-		GUI.Label(new Rect(40, 10, 100, 20), velMag.ToString());
-		GUI.Label(new Rect(40, 30, 100, 20), i.inventory [0].itemName);
+		//GUI.Label(new Rect(40, 10, 100, 20), velMag.ToString());
+		//GUI.Label(new Rect(40, 30, 100, 20), i.inventory [0].itemName);
 	}
 	
 	void Update() {
@@ -76,6 +85,9 @@ public class Player : MonoBehaviour {
 		velMag = rigidbody2D.velocity.magnitude;
 		GameObject projectile;
 		SMGSlow++;
+		healthBar.value = currentHealth;
+		energyBar.value = currentEnergy;
+
 
 		if (Input.GetMouseButtonDown (1)) {
 			anim.SetTrigger ("Attack");
@@ -105,6 +117,7 @@ public class Player : MonoBehaviour {
 		float input = Input.GetAxisRaw ("Vertical");
 		anim.SetFloat ("Speed", rigidbody2D.velocity.magnitude);
 
+		
 		if (Input.GetKeyUp (KeyCode.Q)) {
 			Item tmp = inv.inventory[0];
 			inv.inventory[0] = inv.inventory[1];

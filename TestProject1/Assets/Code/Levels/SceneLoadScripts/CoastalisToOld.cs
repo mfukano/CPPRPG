@@ -4,12 +4,13 @@ using System.Collections;
 public class CoastalisToOld : MonoBehaviour {
 	
 	public Player player_0;
-	float newX = PlayerPrefs.GetFloat ("PlayerX");
-	float newY = -1880;
-	float newZ = PlayerPrefs.GetFloat ("PlayerZ");
+	float newX, newY, newZ;
 	
 	void Start() {
 		player_0 = (Player)GameObject.FindObjectOfType (typeof(Player));
+		newX = PlayerPrefs.GetFloat ("PlayerX");
+		newY = -1880;
+		newZ = PlayerPrefs.GetFloat ("PlayerZ");
 	}
 	// Update is called once per frame
 	void Update () {
