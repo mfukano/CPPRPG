@@ -98,6 +98,10 @@ public class Item : MonoBehaviour {
 		return 0;
 	}
 
+	public virtual float getAmmoPerShot() {
+		return 0;
+	}
+
 
 
 }

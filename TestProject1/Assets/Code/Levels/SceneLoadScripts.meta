@@ -1,9 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 guid: e23eee87b5f4d450cad7ee65c5d86d53
 =======
 guid: 899bb2a3b3f8d4eaf806721807f119ad
 >>>>>>> Stashed changes
+=======
+guid: 26e3f03d096e5ef4c94597cdb63b3ed6
+>>>>>>> origin/master
 folderAsset: yes
 DefaultImporter:
   userData: 

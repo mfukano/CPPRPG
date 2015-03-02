@@ -81,7 +81,7 @@ public class Chest : MonoBehaviour {
 	public void spawnObjects(){
 		for (int i = 0; i < numberOfPrefabs; i++) {
 			Vector3 center = transform.position;
-			Vector3 pos = ranCircle (center, 50.0f);
+			Vector3 pos = ranCircle (center, 20.0f);
 			int prefabIndex = UnityEngine.Random.Range (0, 13);
 			Instantiate (myObjects [prefabIndex], pos, Quaternion.Euler(0, 180, 0));
 		}
