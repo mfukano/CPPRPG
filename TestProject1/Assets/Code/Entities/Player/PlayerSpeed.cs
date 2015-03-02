@@ -17,7 +17,7 @@ public class PlayerSpeed : MonoBehaviour
 				myPlayer.currentEnergy = startEnergy;
 				currentEnergy = myPlayer.currentEnergy;
 				myPlayer.playerSpeed = walkSpeed;
-		energyRegen = true;
+				energyRegen = true;
 		}
 
 		void SetPlayerEnergy ()
@@ -43,9 +43,8 @@ public class PlayerSpeed : MonoBehaviour
 	
 		void SetRun ()
 		{
-			Debug.Log ("LeftShift registered");
-			myPlayer.playerSpeed = runSpeed;
-		    if (energyRegen) {
+				myPlayer.playerSpeed = runSpeed;
+				if (energyRegen) {
 						energyRegen = false;
 						InvokeRepeating ("EnergyDrain", 1, 1);
 				}
@@ -53,9 +52,9 @@ public class PlayerSpeed : MonoBehaviour
 		
 		void SetWalk ()
 		{
-			// Else-block disables running, sets energy regen
-			myPlayer.playerSpeed = walkSpeed;
-		if (!energyRegen) {
+				// Else-block disables running, sets energy regen
+				myPlayer.playerSpeed = walkSpeed;
+				if (!energyRegen) {
 						energyRegen = true;
 						InvokeRepeating ("EnergyRestore", 1, 1);
 				}
@@ -66,11 +65,13 @@ public class PlayerSpeed : MonoBehaviour
 		{
 				
 				if (Input.GetKeyDown (KeyCode.LeftShift)) {
-					if(energyRegen) CancelInvoke ("EnergyRestore");
+						if (energyRegen)
+								CancelInvoke ("EnergyRestore");
 						isRunning = true;
 						SetRun ();
 				} else if (Input.GetKeyUp (KeyCode.LeftShift)) {
-					if(!energyRegen) CancelInvoke ("EnergyDrain");
+						if (!energyRegen)
+								CancelInvoke ("EnergyDrain");
 						isRunning = false;
 						SetWalk ();
 				}
