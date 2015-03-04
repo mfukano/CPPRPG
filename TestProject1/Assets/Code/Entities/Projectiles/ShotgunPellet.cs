@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ShotgunPellet : MonoBehaviour {
+public class ShotgunPellet : Projectile {
 
 	// Use this for initialization
 	void Start () {

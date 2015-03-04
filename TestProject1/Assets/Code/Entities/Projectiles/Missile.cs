@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Laser : Projectile {
+public class Missile : Projectile {
 	void Start () {
 		transform.rigidbody2D.AddForce (transform.up * speed);
 	}
