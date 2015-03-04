@@ -11,6 +11,9 @@ public class Enemy : MonoBehaviour {
 	public float enemySpeed;
 	private float velMag;
 	private bool isDead;
+	private string gun;
+	private int shootRate;
+	private int shootCount;
 	Animator anim;
 
 	// AI
@@ -21,6 +24,10 @@ public class Enemy : MonoBehaviour {
 		startHealth = maxHealth;
 		currentHealth = startHealth;
 		isDead = false;
+
+		gun = "Rocket Launcher";
+		shootCount = 0;
+		shootRate = 75;
 
 		// Create AI
 		// myAI = new Enemy_AI_Ranged ();
@@ -57,21 +64,14 @@ public class Enemy : MonoBehaviour {
 	}
 
 	
-/*	void Update() {
-		velMag = rigidbody2D.velocity.magnitude;
-		if (Input.GetMouseButtonDown (1)) {
-			anim.SetTrigger ("Attack");
+	void Update() {
+		shootCount++;
+		if (Time.timeScale == 1 && shootCount % shootRate == 0) {
+			Projectile prj = GetComponentInChildren<Projectile> ();
+			prj.ShootGun (gun);
 		}
-		if (Input.GetMouseButtonDown (0) && Time.timeScale == 1) {
-			GameObject bullet = Instantiate(Resources.Load("bullet"), transform.position, transform.rotation) as GameObject;
-			if (bulletInitVel)
-				bullet.rigidbody2D.AddForce (bullet.transform.up * (bulletSpeed + (playerSpeed * Input.GetAxis ("Vertical"))));
-			else
-				bullet.rigidbody2D.AddForce (bullet.transform.up * bulletSpeed);
-		}
-		float input = Input.GetAxisRaw ("Vertical");
-		anim.SetFloat ("Speed", rigidbody2D.velocity.magnitude);
-	} */
+
+	} 
 }
 
 
