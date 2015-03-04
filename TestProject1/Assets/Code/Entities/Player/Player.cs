@@ -103,11 +103,5 @@ public class Player : MonoBehaviour {
 			Projectile prj = GetComponentInChildren<Projectile> ();
 			prj.ShootGun (currentGun);
 		}
-		
-		if (Input.GetKeyUp (KeyCode.Q)) {
-			Item tmp = inv.inventory[0];
-			inv.inventory[0] = inv.inventory[1];
-			inv.inventory[1] = tmp;
-		}
 	}
 }

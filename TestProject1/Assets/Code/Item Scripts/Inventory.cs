@@ -37,6 +37,16 @@ public class Inventory : MonoBehaviour {
 		style.fontSize = 15;
 	}
 
+	// Update is called once per frame
+	void Update () {
+		if (Input.GetKeyUp (KeyCode.I)) {
+			paused = toggleInventory();
+		}
+		if (Input.GetKeyUp (KeyCode.Q)) {
+			hotSwap();
+		}
+	}
+
 	void OnGUI () {
 		itemStats = "";
 		GUI.skin = skin;
@@ -178,10 +188,11 @@ public class Inventory : MonoBehaviour {
 		inventory[i] = new Item();
 	}
 
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetKeyUp (KeyCode.I)) {
-			paused = toggleInventory();
+	void hotSwap () {
+		if (inventory [0] != null && inventory [1] != null) {
+			Item tmp = inventory[0];
+			inventory[0] = inventory[1];
+			inventory[1] = tmp;
 		}
 	}
 
