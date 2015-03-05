@@ -5,6 +5,7 @@ public class Projectile : MonoBehaviour {
 	
 	public float dmg;
 	public float speed;
+
 	void Start () {
 	}
 
@@ -32,15 +33,6 @@ public class Projectile : MonoBehaviour {
 			GameObject bullet = Instantiate(Resources.Load("Prefabs/bullet"), pd3.position, pd3.rotation) as GameObject;
 			break;
 		}
-	}
-
-	public IEnumerator ShowMessage (string message, float delay) {
-		GUIText warning = new GUIText();
-		warning.text = message;
-		warning.alignment = TextAlignment.Center;
-		warning.enabled = true;
-		yield return new WaitForSeconds(delay);
-		warning.enabled = false;
 	}
 
 	public void DoDamage() {

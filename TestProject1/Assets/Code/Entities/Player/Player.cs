@@ -24,12 +24,20 @@ public class Player : MonoBehaviour {
 	private int SMGSlow=0;
 	Animator anim;
 
+	private bool outOfAmmo = false;
+
 	void Start() {
 		anim = GetComponent<Animator>();
 		currentHealth = startHealth;
 		//currentEnergy = startEnergy;
 		healthBar.value = currentHealth;
 		energyBar.value = currentEnergy;
+	}
+
+	void OnGUI() {
+		if (outOfAmmo) {
+			StartCoroutine(NotEnoughAmmo());
+		}
 	}
 
 	void FixedUpdate() {
@@ -48,6 +56,12 @@ public class Player : MonoBehaviour {
 		rigidbody2D.angularVelocity = 0;
 
 
+	}
+
+	public IEnumerator NotEnoughAmmo () {
+		GUI.Label (new Rect(20, Screen.height - 128, 300, 48), "Not enough ammo!");
+		yield return new WaitForSeconds (1);
+		outOfAmmo = false;
 	}
 
 	public void healDamage (float heal_val) {
@@ -70,13 +84,6 @@ public class Player : MonoBehaviour {
 	void Death(){
 		isDead = true;
 		playerSpeed = 0;
-
-	}
-	
-	void OnGUI() {
-		Inventory i = (Inventory)gameObject.GetComponent(typeof(Inventory));
-		//GUI.Label(new Rect(40, 10, 100, 20), velMag.ToString());
-		//GUI.Label(new Rect(40, 30, 100, 20), i.inventory [0].itemName);
 	}
 	
 	void Update() {
@@ -98,7 +105,7 @@ public class Player : MonoBehaviour {
 				prj.ShootGun (currentGun);
 				inv.ammoCount -= (int)inv.inventory [0].getAmmoPerShot ();
 			} else {
-				//StartCoroutine(prj.ShowMessage("Not enough ammo!", 1));
+				outOfAmmo = true;
 			}
 		}
 
@@ -107,6 +114,8 @@ public class Player : MonoBehaviour {
 			if (inv.ammoCount >= (int)inv.inventory[0].getAmmoPerShot()) {
 				prj.ShootGun (currentGun);
 				inv.ammoCount -= (int)inv.inventory [0].getAmmoPerShot ();
+			} else {
+				outOfAmmo = true;
 			}
 		}
 	}
