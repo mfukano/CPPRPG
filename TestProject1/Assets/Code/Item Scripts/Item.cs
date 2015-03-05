@@ -90,15 +90,15 @@ public class Item : MonoBehaviour {
 	}
 
 	//placeholder functions which are overrode in Consumables and Equippables
-	public virtual float getRestore() {
+	public virtual int getRestore() {
 		return 0;
 	}
 
-	public virtual float getDamage() {
+	public virtual int getDamage() {
 		return 0;
 	}
 
-	public virtual float getAmmoPerShot() {
+	public virtual int getAmmoPerShot() {
 		return 0;
 	}
 

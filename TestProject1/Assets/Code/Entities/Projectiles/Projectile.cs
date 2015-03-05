@@ -33,6 +33,16 @@ public class Projectile : MonoBehaviour {
 			break;
 		}
 	}
+
+	public IEnumerator ShowMessage (string message, float delay) {
+		GUIText warning = new GUIText();
+		warning.text = message;
+		warning.alignment = TextAlignment.Center;
+		warning.enabled = true;
+		yield return new WaitForSeconds(delay);
+		warning.enabled = false;
+	}
+
 	public void DoDamage() {
 		//deal damage to player
 	}

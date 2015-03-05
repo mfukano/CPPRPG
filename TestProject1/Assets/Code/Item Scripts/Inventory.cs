@@ -60,15 +60,7 @@ public class Inventory : MonoBehaviour {
 			GUI.DrawTexture(new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y, 32, 32), selectedItem.itemIcon);
 		}
 		if (inventory[handItem] != null) {
-			Rect currEquipped = new Rect(20, Screen.height - 68, 48, 48);
-			GUI.DrawTexture (currEquipped, inventory[handItem].itemIcon);
-			// if the equipped item is ranged
-			if (inventory[handItem].getAmmoPerShot() != 0) {
-				GUI.Label (new Rect(20, Screen.height - 88, 48, 48), ammoCount.ToString());
-			}
-			if (currEquipped.Contains(Event.current.mousePosition)) {
-				GUI.Box (new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y, statsX, statsY), createItemStats(inventory[handItem]));
-			}
+			drawEquipped();
 		}
 	}
 
@@ -163,11 +155,29 @@ public class Inventory : MonoBehaviour {
 		}
 	}
 
+	// draws the currently equipped item in the bottom left
+	void drawEquipped () {
+		Rect currEquipped = new Rect(20, Screen.height - 68, 48, 48);
+		GUI.DrawTexture (currEquipped, inventory[handItem].itemIcon);
+		// if the equipped item is ranged
+		if (inventory[handItem].getAmmoPerShot() != 0) {
+			GUI.Label (new Rect(20, Screen.height - 88, 48, 48), ammoCount.ToString());
+		}
+		if (currEquipped.Contains(Event.current.mousePosition)) {
+			GUI.Box (new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y, statsX, statsY), createItemStats(inventory[handItem]));
+		}
+	}
+
 	//constructs a string of item stats to display
 	string createItemStats (Item item) {
 		string stats = "<color=#ffffff>" + item.itemName + "\nWgt: " + item.itemWeight + "</color>";
 		if (item.getRestore() == 0) {
 			stats = stats + "<color=#ff7a88>\nDamage: " + item.getDamage() + "</color>";
+			// if ranged weapon
+			int aps = 0;
+			if ((aps = item.getAmmoPerShot()) != 0) {
+				stats = stats + "\nAmmo/Shot: " + aps;
+			}
 		} else {
 			stats = stats + "<color=#15ff00>\nRestore: " + item.getRestore() + "</color>";
 		}

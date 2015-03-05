@@ -2,14 +2,14 @@
 using System.Collections;
 
 public class Ranged : Equippables {
-	public float maxRange;
-	public float AmmoPerShot;
+	public int maxRange;
+	public int AmmoPerShot;
 	// Use this for initialization
 	void Start () {
 	
 	}
-	
-	public override float getAmmoPerShot() {
+
+	public override int getAmmoPerShot() {
 		return this.AmmoPerShot;
 	}
 

@@ -4,20 +4,20 @@ using System.Collections.Generic;
 
 public class Equippables : Item {
 	// equippables attributes
-	public float Damage;
-	public float BulletSpeed;
-	public float ReloadTimePerShot;
+	public int Damage;
+	public int BulletSpeed;
+	public int ReloadTimePerShot;
 	
 	// Use this for initialization
 	void Start () {
 		
 	}
 
-	public override float getDamage() {
+	public override int getDamage() {
 		return this.Damage;
 	}
 
-	public override float getAmmoPerShot() {
+	public override int getAmmoPerShot() {
 		return 0;
 	}
 

@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 public class Consumables : Item {
 	//consumables attributes
-	public float restoreValue;
+	public int restoreValue;
 	
 	//extra necessay variables
-	private float pHealth;
+	private int pHealth;
 	
 	// Use this for initialization
 	void Start () {
@@ -18,11 +18,11 @@ public class Consumables : Item {
 	}
 
 	//access player's health for health and use restoreValue for value
-	void restorePlayerHealth(float value, float health){
+	void restorePlayerHealth(int value, int health){
 		health += value;
 	}
 
-	public override float getRestore() {
+	public override int getRestore() {
 			return this.restoreValue;
 	}
 	

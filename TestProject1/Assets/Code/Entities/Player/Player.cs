@@ -93,15 +93,21 @@ public class Player : MonoBehaviour {
 		}
 
 		if (Input.GetMouseButtonDown (0) && Time.timeScale == 1 && currentGun != null) {
-			inv.ammoCount -= (int)inv.inventory [0].getAmmoPerShot ();
 			Projectile prj = GetComponentInChildren<Projectile> ();
-			prj.ShootGun (currentGun);
+			if (inv.ammoCount >= (int)inv.inventory[0].getAmmoPerShot()) {
+				prj.ShootGun (currentGun);
+				inv.ammoCount -= (int)inv.inventory [0].getAmmoPerShot ();
+			} else {
+				//StartCoroutine(prj.ShowMessage("Not enough ammo!", 1));
+			}
 		}
 
 		if (Input.GetMouseButton (0) && Time.timeScale == 1 && currentGun == "SMG" && SMGSlow%10 == 0) {
-			inv.ammoCount -= (int)inv.inventory [0].getAmmoPerShot ();
 			Projectile prj = GetComponentInChildren<Projectile> ();
-			prj.ShootGun (currentGun);
+			if (inv.ammoCount >= (int)inv.inventory[0].getAmmoPerShot()) {
+				prj.ShootGun (currentGun);
+				inv.ammoCount -= (int)inv.inventory [0].getAmmoPerShot ();
+			}
 		}
 	}
 }
