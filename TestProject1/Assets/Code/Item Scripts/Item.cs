@@ -8,6 +8,8 @@ public class Item : MonoBehaviour {
 	public int itemID;
 	public int itemWeight;
 	public Texture2D itemIcon;
+	public Sprite itemSprite;
+	public bool isMelee;
 
 	// other stuff
 	private string labelText = "Press E to pickup";

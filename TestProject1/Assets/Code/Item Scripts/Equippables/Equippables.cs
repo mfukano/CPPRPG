@@ -7,6 +7,7 @@ public class Equippables : Item {
 	public int Damage;
 	public int BulletSpeed;
 	public int ReloadTimePerShot;
+
 	
 	// Use this for initialization
 	void Start () {

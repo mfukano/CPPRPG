@@ -87,7 +87,7 @@ public class Player : MonoBehaviour {
 	}
 	
 	void Update() {
-		Inventory inv = (Inventory)gameObject.GetComponent(typeof(Inventory));
+		Inventory inv = (Inventory)gameObject.GetComponent (typeof(Inventory));
 		string currentGun = inv.inventory [0].itemName;
 		SMGSlow++;
 		healthBar.value = currentHealth;
@@ -95,27 +95,36 @@ public class Player : MonoBehaviour {
 
 		anim.SetFloat ("Speed", rigidbody2D.velocity.magnitude);
 
-		if (Input.GetMouseButtonDown (1)) {
-			anim.SetTrigger ("Attack");
-		}
-
 		if (Input.GetMouseButtonDown (0) && Time.timeScale == 1 && currentGun != null) {
-			Projectile prj = GetComponentInChildren<Projectile> ();
-			if (inv.ammoCount >= (int)inv.inventory[0].getAmmoPerShot()) {
-				prj.ShootGun (currentGun);
-				inv.ammoCount -= (int)inv.inventory [0].getAmmoPerShot ();
+			if (inv.inventory [0].isMelee) {
+				Texture2D texture = inv.inventory[0].itemIcon;
+				MeleeWeapon mel = GetComponentInChildren<MeleeWeapon> ();
+				Sprite mac = Resources.Load("Spritesheet/mace", typeof(Sprite)) as Sprite;
+
+				if(mel != null)
+				mel.GetComponent<SpriteRenderer>().sprite = mac;//////////////////////////////////////////
+				anim.SetTrigger ("Attack");
 			} else {
-				outOfAmmo = true;
+				Projectile prj = GetComponentInChildren<Projectile> ();
+				if (inv.ammoCount >= (int)inv.inventory [0].getAmmoPerShot ()) {
+					prj.ShootGun (currentGun);
+					inv.ammoCount -= (int)inv.inventory [0].getAmmoPerShot ();
+				} else {
+					outOfAmmo = true;
+				}
 			}
 		}
 
-		if (Input.GetMouseButton (0) && Time.timeScale == 1 && currentGun == "SMG" && SMGSlow%10 == 0) {
-			Projectile prj = GetComponentInChildren<Projectile> ();
-			if (inv.ammoCount >= (int)inv.inventory[0].getAmmoPerShot()) {
-				prj.ShootGun (currentGun);
-				inv.ammoCount -= (int)inv.inventory [0].getAmmoPerShot ();
+		if (Input.GetMouseButton (0) && Time.timeScale == 1 && currentGun == "SMG" && SMGSlow % 10 == 0) {
+			if (inv.inventory [0].isMelee) {
 			} else {
-				outOfAmmo = true;
+				Projectile prj = GetComponentInChildren<Projectile> ();
+				if (inv.ammoCount >= (int)inv.inventory [0].getAmmoPerShot ()) {
+					prj.ShootGun (currentGun);
+					inv.ammoCount -= (int)inv.inventory [0].getAmmoPerShot ();
+				} else {
+					outOfAmmo = true;
+				}
 			}
 		}
 	}

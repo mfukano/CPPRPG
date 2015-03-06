@@ -29,11 +29,14 @@ public class Projectile : MonoBehaviour {
 		case("Rocket Launcher"):
 			GameObject missile = Instantiate(Resources.Load("Prefabs/Missile"), pd3.position, pd3.rotation) as GameObject;
 			break;
-		default:
+		case("Pistol"):
 			GameObject bullet = Instantiate(Resources.Load("Prefabs/bullet"), pd3.position, pd3.rotation) as GameObject;
+			break;
+		default:
 			break;
 		}
 	}
+
 
 	public void DoDamage() {
 		//deal damage to player
