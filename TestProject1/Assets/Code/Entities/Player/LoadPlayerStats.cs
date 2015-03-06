@@ -13,5 +13,10 @@ public class LoadPlayerStats : MonoBehaviour
 		healthBar.value = myPlayer.currentHealth;
 		energyBar.value = myPlayer.currentEnergy;
 	}
-}
 
+	void Update() {
+				healthBar.value = myPlayer.currentHealth;
+				energyBar.value = myPlayer.currentEnergy;
+		}
+}
+	

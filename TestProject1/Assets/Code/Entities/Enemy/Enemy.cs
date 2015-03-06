@@ -14,18 +14,21 @@ public class Enemy : MonoBehaviour {
 	private string gun;
 	private int shootRate;
 	private int shootCount;
+	private bool canShoot;
 	Animator anim;
 
 	// AI
-	public Enemy_AI_Ranged myAI;
+	public Enemy_AI_Movement myAI;
 	
 	void Start() {
 		anim = GetComponent<Animator>();
+		myAI = GetComponent<Enemy_AI_Movement> ();
 		startHealth = maxHealth;
 		currentHealth = startHealth;
 		isDead = false;
+		canShoot = false;
 
-		gun = "Rocket Launcher";
+		gun = "Pistol";
 		shootCount = 0;
 		shootRate = 75;
 
@@ -66,12 +69,38 @@ public class Enemy : MonoBehaviour {
 	
 	void Update() {
 		shootCount++;
-		if (Time.timeScale == 1 && shootCount % shootRate == 0) {
-			Projectile prj = GetComponentInChildren<Projectile> ();
-			prj.ShootGun (gun);
-		}
+		// While not paused
+		if (Time.timeScale == 1) 
+		{
+			if (canShoot)
+			{
+				return;
+			}
 
-	} 
+			if (shootCount % shootRate == 0)
+			{
+				canShoot = true;
+				shootCount = 1;
+				return;
+			}
+			shootCount++;
+		}
+//		if (Time.timeScale == 1 && shootCount % shootRate == 0) {
+//			Projectile prj = GetComponentInChildren<Projectile> ();
+//			prj.ShootGun (gun);
+//		}
+
+	}
+
+	public void Shoot()
+	{
+		if (canShoot)
+		{
+			Projectile proj = GetComponentInChildren<Projectile> ();
+			proj.ShootGun(gun);
+			canShoot = false;
+		}
+	}
 }
 
 

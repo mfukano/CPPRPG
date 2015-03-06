@@ -13,9 +13,6 @@ public class Player : MonoBehaviour {
 
 	public float playerSpeed;
 
-	public Slider healthBar;
-	public Slider energyBar;
-
 	public float bulletSpeed;
 	public bool bulletInitVel;
 
@@ -29,9 +26,6 @@ public class Player : MonoBehaviour {
 	void Start() {
 		anim = GetComponent<Animator>();
 		currentHealth = startHealth;
-		//currentEnergy = startEnergy;
-		healthBar.value = currentHealth;
-		energyBar.value = currentEnergy;
 	}
 
 	void OnGUI() {
@@ -67,14 +61,12 @@ public class Player : MonoBehaviour {
 	public void healDamage (float heal_val) {
 		if (currentHealth != maxHealth) {
 			currentHealth += heal_val;
-			healthBar.value = currentHealth;
 				}
 	}
 
 
 	public void takeDamage (float dmg_val) {
 		currentHealth -= dmg_val;
-		healthBar.value = currentHealth;
 
 		if (currentHealth <= 0) {
 			Death();
@@ -90,8 +82,6 @@ public class Player : MonoBehaviour {
 		Inventory inv = (Inventory)gameObject.GetComponent (typeof(Inventory));
 		string currentGun = inv.inventory [0].itemName;
 		SMGSlow++;
-		healthBar.value = currentHealth;
-		energyBar.value = currentEnergy;
 
 		anim.SetFloat ("Speed", rigidbody2D.velocity.magnitude);
 
