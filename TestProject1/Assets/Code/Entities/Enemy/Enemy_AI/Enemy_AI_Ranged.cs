@@ -48,11 +48,13 @@ public class Enemy_AI_Ranged : MonoBehaviour {
 				Quaternion.LookRotation (Vector3.forward, TargetLocation.position - transform.position);
 		} else 
 		{
+			// Check to see if I'm already at the players location
+
 			// Moving to last known player location.
 			Vector2 dir = personalLastKnownLocation - transform.position;
 			transform.rotation = Quaternion.LookRotation (Vector3.forward, dir);
 			// TODO: Put in fixed update
-			rigidbody2D.velocity = dir.normalized * Owner.enemySpeed; //* Time.deltaTime;
+			//rigidbody2D.velocity = dir.normalized * Owner.enemySpeed; //* Time.deltaTime;
 		}
 
 		// Seeing the player
@@ -68,7 +70,10 @@ public class Enemy_AI_Ranged : MonoBehaviour {
 	{
 		// Skip anything not the player
 		if (other.gameObject != player)
-						return;
+		{
+			return;
+		}
+		//Debug.Log ("Is the Player");
 		// Player is hidden by default
 		playerInSight = false;
 
@@ -77,6 +82,8 @@ public class Enemy_AI_Ranged : MonoBehaviour {
 		float angle = Vector3.Angle (direction, transform.up);
 		if (angle < fieldOfViewAngle * 0.5f) 
 		{
+			Debug.Log ("In My angle.");
+			/*
 			// Save current object layer
 			int oldLayer = gameObject.layer;
 
@@ -84,10 +91,30 @@ public class Enemy_AI_Ranged : MonoBehaviour {
 			gameObject.layer = LayerMask.NameToLayer("Ghost");
 			int layerToIgnore = 1 << gameObject.layer;
 			layerToIgnore = ~layerToIgnore;
+			*/
+			RaycastHit2D[] hits = 
+				Physics2D.RaycastAll(transform.position, direction.normalized, fieldOfViewDistance); //layerToIgnore);
+			foreach (RaycastHit2D hit in hits)
+			{
+				if (hit)
+				{
+					if (hit.collider.CompareTag("Wall"))
+					{
+						// We hit a wall before a player
+						break;
+					}
+					if(hit.collider.gameObject == player)
+					{
+						playerInSight = true;
 
-			RaycastHit2D hit = 
-				Physics2D.Raycast(transform.position, direction.normalized, fieldOfViewDistance, layerToIgnore);
-			if (hit) {
+						// Set last global sighting is player current position
+						LastKnownLocation = player.transform.position;
+						
+						Debug.Log("See the player!");
+					}
+				}
+			}
+			/*if (hit) {
 				if(hit.collider.gameObject == player)
 				{
 					playerInSight = true;
@@ -95,10 +122,10 @@ public class Enemy_AI_Ranged : MonoBehaviour {
 					// Set last global sighting is player current position
 					LastKnownLocation = player.transform.position;
 
-					//Debug.Log("See the player!");
+					Debug.Log("See the player!");
 				}
-				gameObject.layer = oldLayer;
-			}
+				//gameObject.layer = oldLayer;
+			}*/
 		}
 
 		// Code here can be used to check animation frames to see if he is sneaking.
