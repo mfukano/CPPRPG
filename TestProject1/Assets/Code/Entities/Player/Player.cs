@@ -52,7 +52,7 @@ public class Player : MonoBehaviour {
 
 	}
 
-	public IEnumerator NotEnoughAmmo () {
+	IEnumerator NotEnoughAmmo () {
 		GUI.Label (new Rect(20, Screen.height - 128, 300, 48), "Not enough ammo!");
 		yield return new WaitForSeconds (1);
 		outOfAmmo = false;
