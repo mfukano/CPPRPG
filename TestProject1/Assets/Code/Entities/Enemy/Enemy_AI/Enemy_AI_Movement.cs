@@ -29,6 +29,7 @@ public class Enemy_AI_Movement : MonoBehaviour {
 
 	
 	//The AI's speed per second
+	public bool isRunning = true;
 	public float runSpeed = 5000;
 	public float walkSpeed = 1000;
 
@@ -74,6 +75,7 @@ public class Enemy_AI_Movement : MonoBehaviour {
 			path = p;
 			//Reset the waypoint counter
 			currentWaypoint = 0;
+			endOfPath = false;
 		}
 	}
 
@@ -118,7 +120,7 @@ public class Enemy_AI_Movement : MonoBehaviour {
 				// Create the new path
 				seeker.StartPath(transform.position, lastKnownLocation, OnPathComplete);
 				usingLastKnownPath = true;
-				endOfPath = false;
+				endOfPath = true;
 				currentWaypoint = 0;
 				Debug.Log("Set a new path");
 			}
@@ -132,7 +134,7 @@ public class Enemy_AI_Movement : MonoBehaviour {
 		//Direction to the next waypoint
 		if (!endOfPath){
 			Vector3 dir = (path.vectorPath[currentWaypoint]-transform.position).normalized;
-			dir *= runSpeed * Time.fixedDeltaTime;
+			dir *= (isRunning ? runSpeed : walkSpeed) * Time.fixedDeltaTime;
 			rigidbody2D.velocity = dir;
 			// Look at it  
 			transform.rotation = 
@@ -174,7 +176,7 @@ public class Enemy_AI_Movement : MonoBehaviour {
 				{
 					if (hit.collider.CompareTag("Wall"))
 					{
-						// We hit a wall before a player
+						// We hit a wall before a player so we can't see him
 						break;
 					}
 					if(hit.collider.gameObject == targetPlayer)
