@@ -80,7 +80,6 @@ public class Enemy : MonoBehaviour {
 			if (shootCount % shootRate == 0)
 			{
 				canShoot = true;
-				shootCount = 1;
 				return;
 			}
 			shootCount++;
@@ -99,6 +98,7 @@ public class Enemy : MonoBehaviour {
 			Projectile proj = GetComponentInChildren<Projectile> ();
 			proj.ShootGun(gun);
 			canShoot = false;
+			shootCount = 1;
 		}
 	}
 }

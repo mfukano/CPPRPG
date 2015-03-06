@@ -118,4 +118,9 @@ public class Player : MonoBehaviour {
 			}
 		}
 	}
+
+	public void DamagePlayer(int damage)
+	{
+		this.currentHealth -= damage;
+	}
 }
