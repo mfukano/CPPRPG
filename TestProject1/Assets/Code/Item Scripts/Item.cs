@@ -17,6 +17,7 @@ public class Item : MonoBehaviour {
 	private bool getRidOfIt = false;
 	private bool pickUp = false;
 	private GameObject player = null;
+	private bool tooMuchWeight = false;
 
 	// empty item constructor for initilization in the inventory
 	public Item() { }
@@ -34,6 +35,15 @@ public class Item : MonoBehaviour {
 			//GUI.Box(Rect(140,Screen.height-50,Screen.width-300,120),(labelText));
 			GUI.Box (new Rect (680, 40, 200, 50), labelText);
 		}
+		if (tooMuchWeight) {
+			StartCoroutine(TooMuchWeight());
+		}
+	}
+
+	IEnumerator TooMuchWeight () {
+		GUI.Label (new Rect(20, Screen.height - 128, 300, 48), "Not enough space in your backpack!");
+		yield return new WaitForSeconds (1);
+		tooMuchWeight = false;
 	}
 
 	// Update is called once per frame
@@ -50,8 +60,6 @@ public class Item : MonoBehaviour {
 		if (getRidOfIt == true) {
 			// add to inventory
 			addToInventory ();
-			//Destroy(gameObject);
-			gameObject.SetActive(false);
 			getRidOfIt = false;
 		}
 	}
@@ -74,18 +82,24 @@ public class Item : MonoBehaviour {
 
 	//get player inventory and add the item to it
 	public void addToInventory() {
-		Inventory i = (Inventory)player.GetComponent(typeof(Inventory));
-		int count = i.inventory.Count;
-		int k;
+		Inventory inv = (Inventory)player.GetComponent(typeof(Inventory));
+		if (inv.currWeight + this.itemWeight > inv.maxWeight) {
+			tooMuchWeight = true;
+			return;
+		}
+		int count = inv.inventory.Count;
+		int k = 0;
 		// put consumable items into inventory and not hand/holster
-		if (this.getRestore() == 0) {
-			k = 0;
-		} else {
+		if (this.getRestore() != 0) {
 			k = 2;
 		}
 		for ( ; k < count; k++) {
-			if (i.inventory[k].itemName == null) {
-				i.inventory[k] = this;
+			if (inv.inventory[k].itemName == null) {
+				// add the item to the inventory and increase current weight
+				inv.inventory[k] = this;
+				inv.currWeight += this.itemWeight;
+				gameObject.SetActive(false);
+				Debug.Log (inv.currWeight);
 				break;
 			}
 		}

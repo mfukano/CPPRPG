@@ -11,15 +11,17 @@ public class Inventory : MonoBehaviour {
 	private int handItem = 0;
 	private int pocketItem = 1;
 	public int ammoCount = 1000;
+	public int maxWeight = 10000; // grams
+	public int currWeight = 0;
 
 	//item stats variables
 	public int statsX = 100;
 	public int statsY = 75;
-
-	// misc
 	private bool paused = false;
 	private bool showItemStats = false;
 	private string itemStats;
+
+	// misc
 	public GUIStyle style;
 
 	//will be used for rearranging items
@@ -75,6 +77,8 @@ public class Inventory : MonoBehaviour {
 		GUI.Label (new Rect (((Screen.width/2)-80), ((Screen.height/2)-142), 500, 500), "Hand", style);
 		GUI.Label (new Rect (((Screen.width/2)-20), ((Screen.height/2)-142), 500, 500), "Holster", style);
 		GUI.Label (new Rect (((Screen.width/2)-80), ((Screen.height/2)-70), 500, 500), "Backpack", style);
+		GUI.Label (new Rect (((Screen.width/2)-80), ((Screen.height/2)+112), 500, 500), "Weight: "+currWeight+"/"+maxWeight, style);
+		GUI.Label (new Rect (((Screen.width/2)-80), ((Screen.height/2)+128), 500, 500), "Ammo: "+ammoCount, style);
 		// add row for hand and holster items
 		for (int y = 0; y < slotsY+1; y++) {
 			for (int x = 0; x < slotsX; x++) {
@@ -190,6 +194,7 @@ public class Inventory : MonoBehaviour {
 		Vector3 newPos = Camera.main.ScreenToWorldPoint (new Vector3(x, y, 1));
 		item.gameObject.transform.position = newPos;
 		item.gameObject.SetActive (true);
+		this.currWeight -= item.itemWeight;
 	}
 
 	void removeAndHeal (int i) {
