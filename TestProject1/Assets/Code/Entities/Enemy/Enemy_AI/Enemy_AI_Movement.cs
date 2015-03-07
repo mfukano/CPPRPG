@@ -88,7 +88,15 @@ public class Enemy_AI_Movement : MonoBehaviour {
 		if (currentWaypoint >= path.vectorPath.Count) {
 			//Debug.Log ("End Of Path Reached");
 			endOfPath = true;
-			usingLastKnownPath = false;
+			//usingLastKnownPath = false;
+			rigidbody2D.velocity = Vector2.zero;
+			if (usingLastKnownPath)
+			{
+				doIHaveALastKnownLocation = false;
+				usingLastKnownPath = false;
+				doISeeThePlayer = false;
+			}
+			//doIHaveALastKnownLocation = false;
 		}
 
 		// If we see the player look at him and stop moving and attack!
@@ -107,7 +115,7 @@ public class Enemy_AI_Movement : MonoBehaviour {
 			transform.rotation = 
 				Quaternion.LookRotation(Vector3.forward, -(targetPlayer.transform.position - transform.position));
 			// Shoot the fucker right in the *** (for ranged)
-			Shoot(); // Doesn't work yet
+			Shoot();
 			return; // COULD BE BAD
 		}
 
@@ -120,7 +128,7 @@ public class Enemy_AI_Movement : MonoBehaviour {
 				// Create the new path
 				seeker.StartPath(transform.position, lastKnownLocation, OnPathComplete);
 				usingLastKnownPath = true;
-				endOfPath = true;
+				//endOfPath = true;
 				currentWaypoint = 0;
 				Debug.Log("Set a new path");
 			}
@@ -133,6 +141,7 @@ public class Enemy_AI_Movement : MonoBehaviour {
 
 		//Direction to the next waypoint
 		if (!endOfPath){
+			//Debug.Log ("Not at end of path");
 			Vector3 dir = (path.vectorPath[currentWaypoint]-transform.position).normalized;
 			dir *= (isRunning ? runSpeed : walkSpeed) * Time.fixedDeltaTime;
 			rigidbody2D.velocity = dir;
@@ -213,7 +222,11 @@ public class Enemy_AI_Movement : MonoBehaviour {
 
 	void LookForPlayer()
 	{
-		Debug.Log ("Should be looking");
+		//Debug.Log ("Should be looking");
+		// TODO: run looking animation
+
+
+
 	}
 }
 
