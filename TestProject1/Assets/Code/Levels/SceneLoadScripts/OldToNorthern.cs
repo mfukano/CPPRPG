@@ -22,7 +22,6 @@ public class OldToNorthern : MonoBehaviour {
 			DontDestroyOnLoad (player_0);
 			PlayerSpeed playerspeed = player_0.gameObject.GetComponent<PlayerSpeed>();
 			playerspeed.SetWalk ();
-			player_0.OnSceneChange();
 			Application.LoadLevel("NorthernWastes");
 			player_0.transform.position = new Vector3(newX, newY, newZ);
 		}

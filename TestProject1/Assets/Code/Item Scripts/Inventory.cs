@@ -95,7 +95,8 @@ public class Inventory : MonoBehaviour {
 					continue;
 				}
 
-				if(inventory[i].itemName != null) {
+				if(inventory[i] != null){//.itemName != null) {
+					if(inventory[i].itemName != null){
 					GUI.DrawTexture(slotRect, inventory[i].itemIcon);
 					if (slotRect.Contains(e.mousePosition)) {
 						//show item stats on mouse hover
@@ -125,6 +126,7 @@ public class Inventory : MonoBehaviour {
 								inventory[i] = selectedItem;
 							}
 							selectedItem = null;
+						}
 						}
 					}
 				} else {

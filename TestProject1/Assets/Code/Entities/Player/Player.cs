@@ -10,7 +10,8 @@ public class Player : MonoBehaviour {
 
 	public float startEnergy = 100;
 	public float currentHealth, currentEnergy;
-
+	
+	string currentGun;
 	public float playerSpeed;
 
 	public float bulletSpeed;
@@ -82,7 +83,6 @@ public class Player : MonoBehaviour {
 	}
 
 	public void OnSceneChange(){
-		Debug.Log ("Ghetto Fix");
 		rigidbody2D.velocity = new Vector2 (0, 0);
 		anim.SetFloat ("Speed", rigidbody2D.velocity.magnitude);
 		Debug.Log (rigidbody2D.velocity.magnitude);
@@ -102,8 +102,12 @@ public class Player : MonoBehaviour {
 	
 	void Update() {
 		Inventory inv = (Inventory)gameObject.GetComponent (typeof(Inventory));
-		string currentGun = inv.inventory [0].itemName;
-		SMGSlow++;
+		if (inv.inventory[0]!= null){
+		    	if(inv.inventory[0].itemName != null){
+						currentGun = inv.inventory [0].itemName;
+						SMGSlow++;
+			}
+		}
 
 		anim.SetFloat ("Speed", rigidbody2D.velocity.magnitude);
 
