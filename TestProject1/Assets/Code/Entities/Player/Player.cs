@@ -87,13 +87,7 @@ public class Player : MonoBehaviour {
 
 		if (Input.GetMouseButtonDown (0) && Time.timeScale == 1 && currentGun != null) {
 			if (inv.inventory [0].isMelee) {
-				Texture2D texture = inv.inventory[0].itemIcon;
-				MeleeWeapon mel = GetComponentInChildren<MeleeWeapon> ();
-				Sprite mac = Resources.Load("Spritesheet/mace", typeof(Sprite)) as Sprite;
-
-				if(mel != null)
-				mel.GetComponent<SpriteRenderer>().sprite = mac;//////////////////////////////////////////
-				anim.SetTrigger ("Attack");
+				anim.SetTrigger (currentGun);
 			} else {
 				Projectile prj = GetComponentInChildren<Projectile> ();
 				if (inv.ammoCount >= (int)inv.inventory [0].getAmmoPerShot ()) {
