@@ -136,7 +136,10 @@ public class Enemy_AI_Movement : MonoBehaviour {
 
 		// So if we don't see him and don't know where he was...
 		// Look for the player
-		LookForPlayer ();
+		if (!doIHaveALastKnownLocation)
+		{
+			LookForPlayer ();
+		}
 
 
 		//Direction to the next waypoint
@@ -196,6 +199,7 @@ public class Enemy_AI_Movement : MonoBehaviour {
 						// Set last global sighting is player current position
 						lastKnownLocation = targetPlayer.transform.position;
 						doIHaveALastKnownLocation = true;
+						isRunning = true;
 						
 						//Debug.Log("See the player!");
 					}
@@ -225,7 +229,9 @@ public class Enemy_AI_Movement : MonoBehaviour {
 		//Debug.Log ("Should be looking");
 		// TODO: run looking animation
 
-
+		isRunning = false;
+		lastKnownLocation = targetPlayer.transform.position;
+		doIHaveALastKnownLocation = true;
 
 	}
 }
