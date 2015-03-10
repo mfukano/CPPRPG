@@ -139,6 +139,14 @@ public class Player : MonoBehaviour {
 		}
 	}
 
+	public void OnTriggerEnter2D(Collider2D col) {
+		if (col.gameObject.tag == "ammo") {
+			Inventory inv = (Inventory)GetComponent (typeof(Inventory));
+			inv.ammoCount += Random.Range (20, 100);
+			Destroy (col.gameObject);
+		}
+	}
+
 	public void DamagePlayer(int damage)
 	{
 		this.currentHealth -= damage;
