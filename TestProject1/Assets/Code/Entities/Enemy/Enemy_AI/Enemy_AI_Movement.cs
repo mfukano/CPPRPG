@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Pathfinding;
+
+public enum EnemyAIType { Guard, Patrol, Wander }
 
 public class Enemy_AI_Movement : MonoBehaviour {
 
@@ -8,6 +11,8 @@ public class Enemy_AI_Movement : MonoBehaviour {
 
 	// My Enemy Script
 	private Enemy myself;
+
+
 
 	//The calculated path
 	public Path path;
@@ -42,10 +47,42 @@ public class Enemy_AI_Movement : MonoBehaviour {
 	private bool usingLastKnownPath = false;
 
 
+	#region New AI SCRIPT
+
+	// Finite State Machine Vars
+	public FSM myFSM;
+
+	public EnemyAIType myAIType;
+
+	public List<Vector2> guardPoints;
+
+	// Transform direction based of rotation of original sprite
+	public Vector3 myUpVector;
+
+	#endregion
+
+	public void Awake()
+	{
+
+	}
+
 	public void Start () {
+
+
 		//Get a reference to the Seeker component we added earlier
-		seeker = GetComponent<Seeker>();
 		myself = GetComponent<Enemy> ();
+
+		myFSM = new FSM (myself, this);
+		
+		// Default all enemies to Guard
+		myAIType = EnemyAIType.Guard;
+		
+		// FOR NOW, each guard spot is their starting location
+		List<Vector2> myPoint = new List<Vector2> ();
+		myPoint.Add (transform.position);
+		SetAIType (myAIType, myPoint);
+		
+		myFSM.SetStartingState (new State_Guard (myFSM, myself, guardPoints[0]));
 
 		// Find player Position
 		targetPlayer = GameObject.FindGameObjectWithTag ("Player");
@@ -57,6 +94,9 @@ public class Enemy_AI_Movement : MonoBehaviour {
 		doIHaveALastKnownLocation = false;
 		lastKnownLocation = new Vector2 (0, 0);
 
+		// Up vector
+		myUpVector = Vector3.forward;//new Vector3(0,1,0);
+
 		// Find the right collider
 		foreach (CircleCollider2D col in GetComponents<CircleCollider2D>()) 
 		{
@@ -65,7 +105,7 @@ public class Enemy_AI_Movement : MonoBehaviour {
 		}
 		
 		//Start a new path to the targetPosition, return the result to the OnPathComplete function
-		seeker.StartPath (transform.position,targetPosition, OnPathComplete);
+		//seeker.StartPath (transform.position,targetPosition, OnPathComplete);
 		endOfPath = false;
 	}
 	
@@ -80,7 +120,11 @@ public class Enemy_AI_Movement : MonoBehaviour {
 	}
 
 	public void FixedUpdate () {
-		if (path == null) {
+		// New Update method
+		myFSM.Update ();
+
+		// Old Update
+		/*if (path == null) {
 			//We have no path to move after yet
 			return;
 		}
@@ -158,7 +202,7 @@ public class Enemy_AI_Movement : MonoBehaviour {
 				currentWaypoint++;
 				return;
 			}
-		}
+		}*/
 	}
 
 	void OnTriggerStay2D(Collider2D other)
@@ -233,6 +277,17 @@ public class Enemy_AI_Movement : MonoBehaviour {
 		lastKnownLocation = targetPlayer.transform.position;
 		doIHaveALastKnownLocation = true;
 
+	}
+
+	public bool DoISeeThePlayerCharacter()
+	{
+		return doISeeThePlayer;
+	}
+
+	public void SetAIType(EnemyAIType aiType, List<Vector2> points)
+	{
+		this.myAIType = aiType;
+		guardPoints = points;
 	}
 }
 

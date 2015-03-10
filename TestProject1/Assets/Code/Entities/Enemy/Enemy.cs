@@ -17,6 +17,8 @@ public class Enemy : MonoBehaviour {
 	private bool canShoot;
 	Animator anim;
 
+	public Quaternion defaultRotaton;
+
 	// AI
 	public Enemy_AI_Movement myAI;
 	
@@ -35,6 +37,8 @@ public class Enemy : MonoBehaviour {
 		// Create AI
 		// myAI = new Enemy_AI_Ranged ();
 		// myAI.Owner = this;
+		defaultRotaton = this.transform.rotation;
+		this.transform.rotation = defaultRotaton;
 	}
 	
 	void FixedUpdate() {
