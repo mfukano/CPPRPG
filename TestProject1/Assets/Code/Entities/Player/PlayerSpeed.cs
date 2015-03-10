@@ -31,6 +31,7 @@ public class PlayerSpeed : MonoBehaviour
 						currentEnergy -= 3;
 						SetPlayerEnergy ();
 				}
+				
 		}
 	
 		void EnergyRestore ()
@@ -50,6 +51,9 @@ public class PlayerSpeed : MonoBehaviour
 						energyRegen = false;
 						InvokeRepeating ("EnergyDrain", 1, 1);
 				}
+				if (currentEnergy < 3) {
+			        isRunning = false;
+				}
 		}
 		
 		public void SetWalk ()
@@ -67,7 +71,7 @@ public class PlayerSpeed : MonoBehaviour
 		// Update is called once per frame
 		void Update ()
 		{
-				if (Input.GetKeyDown (KeyCode.LeftShift)) {
+				if (Input.GetKeyDown (KeyCode.LeftShift) && currentEnergy > 2) {
 						SetRun ();
 				} else if (Input.GetKeyUp (KeyCode.LeftShift)) {
 						SetWalk ();
