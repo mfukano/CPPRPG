@@ -73,9 +73,11 @@ public class Enemy : MonoBehaviour {
 	
 	void Update() {
 		shootCount++;
+
 		// While not paused
 		if (Time.timeScale == 1) 
 		{
+			anim.SetFloat ("Speed", rigidbody2D.velocity.magnitude);
 			if (canShoot)
 			{
 				return;
