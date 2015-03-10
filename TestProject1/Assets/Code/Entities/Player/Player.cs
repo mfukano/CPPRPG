@@ -104,10 +104,10 @@ public class Player : MonoBehaviour {
 	
 	void Update() {
 		inv = (Inventory)gameObject.GetComponent (typeof(Inventory));
+		SMGSlow++;
 		if (inv.inventory[0]!= null){
 		    	if(inv.inventory[0].itemName != null){
 						currentGun = inv.inventory [0].itemName;
-						SMGSlow++;
 			}
 		}
 
@@ -138,6 +138,14 @@ public class Player : MonoBehaviour {
 					outOfAmmo = true;
 				}
 			}
+		}
+	}
+
+	public void OnTriggerEnter2D(Collider2D col) {
+		if (col.gameObject.tag == "ammo") {
+			Inventory inv = (Inventory)GetComponent (typeof(Inventory));
+			inv.ammoCount += Random.Range (20, 100);
+			Destroy (col.gameObject);
 		}
 	}
 

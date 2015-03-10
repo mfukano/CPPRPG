@@ -17,6 +17,8 @@ public class Enemy : MonoBehaviour {
 	private bool canShoot;
 	Animator anim;
 
+	public Quaternion defaultRotaton;
+
 	// AI
 	public Enemy_AI_Movement myAI;
 	
@@ -35,6 +37,8 @@ public class Enemy : MonoBehaviour {
 		// Create AI
 		// myAI = new Enemy_AI_Ranged ();
 		// myAI.Owner = this;
+		defaultRotaton = this.transform.rotation;
+		this.transform.rotation = defaultRotaton;
 	}
 	
 	void FixedUpdate() {
@@ -45,7 +49,10 @@ public class Enemy : MonoBehaviour {
 		currentHealth -= dmg_val;
 		if (currentHealth <= 0) {
 			Death();
+			return;
 		}
+
+		myAI.myFSM.ChangeState (new State_Attack (myAI.myFSM, this));
 	}
 	
 	void Death(){
@@ -55,23 +62,31 @@ public class Enemy : MonoBehaviour {
 		
 	}
 
+	void OnDestroy() {
+		GameObject ammo = Instantiate(Resources.Load("Prefabs/Items/ammo"), transform.position, transform.rotation) as GameObject;
+	}
+
 	void OnCollisionEnter2D(Collision2D col) {
 		if (col.gameObject.tag == "Bullet") {
-			takeDamage(200);
+			takeDamage(col.gameObject.GetComponent<Projectile>().dmg);
 			Destroy(col.gameObject);
 		}
-		if (col.gameObject.tag == "Sword") {
+		/*if (col.gameObject.tag == "Sword") {
 			takeDamage(350);
 			//Destroy(col.gameObject);
-		}
+		}*/
 	}
+
+
 
 	
 	void Update() {
 		shootCount++;
+
 		// While not paused
 		if (Time.timeScale == 1) 
 		{
+			anim.SetFloat ("Speed", rigidbody2D.velocity.magnitude);
 			if (canShoot)
 			{
 				return;

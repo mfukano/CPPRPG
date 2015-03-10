@@ -13,10 +13,10 @@ public class Item : MonoBehaviour {
 
 	// other stuff
 	private string labelText = "Press E to pickup";
-	private bool Highlighted;
+	protected bool Highlighted;
 	private bool getRidOfIt = false;
-	private bool pickUp = false;
-	private GameObject player = null;
+	protected bool pickUp = false;
+	protected GameObject player = null;
 	private bool tooMuchWeight = false;
 
 	// empty item constructor for initilization in the inventory
@@ -67,7 +67,7 @@ public class Item : MonoBehaviour {
 	}
 
 	//for collision of item with player, after collision pick up item, now it destroys the item
-	public void OnTriggerEnter2D(Collider2D col) {
+	public virtual void OnTriggerEnter2D(Collider2D col) {
 		if (col.gameObject.tag == "Player") {
 			player = col.gameObject;
 			Highlighted = true;
