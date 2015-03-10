@@ -33,7 +33,7 @@ public class DayNightCycle : MonoBehaviour {
 	void Update () {
 		elapsedTime = Time.time - startTime;
 		if (masterBool == true) {
-			if (Time.time > 85) {
+			if (Time.time > 300) {
 				startTime = Time.time;
 				StopAllCoroutines ();
 				light = true; fog = true; dark = true; dawn = true;
@@ -44,7 +44,7 @@ public class DayNightCycle : MonoBehaviour {
 			}
 		}
 		if (light == true) {
-			if (elapsedTime > 10) {
+			if (elapsedTime > 60) {
 				StartCoroutine ("LerpColorDayFog");
 				light = false;
 			}
@@ -54,7 +54,7 @@ public class DayNightCycle : MonoBehaviour {
 //			StopCoroutine("ColorLerpDayFog");
 //		}
 		if (fog == true) {
-			if (elapsedTime > 30) {
+			if (elapsedTime > 120) {
 				StopCoroutine("LerpColorDayFog");
 				StartCoroutine ("LerpColorFullDark");
 				fog = false;
@@ -65,7 +65,7 @@ public class DayNightCycle : MonoBehaviour {
 //			StopCoroutine("LerpColorFullDark");
 //		}
 		if (dark == true) {
-			if (elapsedTime > 50) {
+			if (elapsedTime > 180) {
 				StopCoroutine("LerpColorFullDark");
 				StartCoroutine ("LerpColorDawn");
 				dark = false;
@@ -76,7 +76,7 @@ public class DayNightCycle : MonoBehaviour {
 //			StopCoroutine("LerpColorDawn");
 //		}
 		if (dawn == true) {
-			if (elapsedTime > 70) {
+			if (elapsedTime > 240) {
 				StopCoroutine("LerpColorDawn");
 				StartCoroutine ("LerpColorDay");
 				dawn = false;
