@@ -27,9 +27,11 @@ public class PlayerSpeed : MonoBehaviour
 
 		void EnergyDrain ()
 		{
-				if (currentEnergy >= 3) {
-						currentEnergy -= 3;
+				if (currentEnergy >= 2) {
+						currentEnergy -= 2;
 						SetPlayerEnergy ();
+				} else {
+						SetWalk ();
 				}
 				
 		}
@@ -49,7 +51,7 @@ public class PlayerSpeed : MonoBehaviour
 				myPlayer.playerSpeed = runSpeed;
 				if (energyRegen) {
 						energyRegen = false;
-						InvokeRepeating ("EnergyDrain", 1, 1);
+						InvokeRepeating ("EnergyDrain", 0.1F, 0.1F);
 				}
 				if (currentEnergy < 3) {
 			        isRunning = false;
@@ -64,7 +66,7 @@ public class PlayerSpeed : MonoBehaviour
 				myPlayer.playerSpeed = walkSpeed;
 				if (!energyRegen) {
 						energyRegen = true;
-						InvokeRepeating ("EnergyRestore", 1, 1);
+						InvokeRepeating ("EnergyRestore", 0.5F, 0.3F);
 				}
 		}
 
