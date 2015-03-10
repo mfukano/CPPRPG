@@ -8,7 +8,9 @@ public class DayNightCycle : MonoBehaviour {
 	float progress1 = 0;
 	float progress2 = 0;
 	float progress3 = 0;
-	float smoothness = 0.02f; 
+	float smoothness = 0.02f;
+	float startTime = 0;
+	float elapsedTime = 0;
 	Color currentColor = Color.white;
 
 	Color fullDark = new Color(32.0f / 255.0f, 28.0f / 255.0f, 46.0f / 255.0f);  
@@ -16,47 +18,70 @@ public class DayNightCycle : MonoBehaviour {
 	Color dawnDuskFog = new Color(133.0f / 255.0f, 124.0f / 255.0f, 102.0f / 255.0f);  
 	Color dayFog = new Color(180.0f / 255.0f, 208.0f / 255.0f, 209.0f / 255.0f);  
 	Color nightFog = new Color(12.0f / 255.0f, 15.0f / 255.0f, 91.0f / 255.0f);  
-	bool fuckit = false;
+	bool light = true;
+	bool fog = true;
+	bool dark = true;
+	bool dawn = true;
+	bool masterBool = false;
+
 	// Use this for initialization
 	void Start () {
+		startTime = Time.time;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		time = Time.time;
-		if (Time.time > 80) {
-			time = 0;
+		elapsedTime = Time.time - startTime;
+		if (masterBool == true) {
+			if (Time.time > 150) {
+				startTime = Time.time;
+				StopAllCoroutines ();
+				light = true;
+				fog = true;
+				dark = true;
+				dawn = true;
+				elapsedTime = 0;
+				masterBool = false;
+			}
 		}
-		if (time > 5) {
-			StartCoroutine("LerpColorDayFog");
+		if (light == true) {
+			if (elapsedTime > 30) {
+				StartCoroutine ("LerpColorDayFog");
+			}
 		}
-		if (RenderSettings.ambientLight == dayFog) {
-			StopCoroutine("ColorLerpDayFog");
-			fuckit = true;
+//		if (RenderSettings.ambientLight == dayFog) {
+//			light = false;
+//			StopCoroutine("ColorLerpDayFog");
+//		}
+		if (fog == true) {
+			if (elapsedTime > 60) {
+				StopCoroutine("LerpColorDayFog");
+				light = false;
+				StartCoroutine ("LerpColorFullDark");
+			}
 		}
-		if (time > 20) {
-			StartCoroutine("LerpColorFullDark");
+//		if (RenderSettings.ambientLight == fullDark) {
+//			fog = false;
+//			StopCoroutine("LerpColorFullDark");
+//		}
+		if (dark == true) {
+			if (elapsedTime > 90) {
+				StopCoroutine("LerpColorFullDark");
+				fog = false;
+				StartCoroutine ("LerpColorDawn");
+			}
 		}
-		if (RenderSettings.ambientLight == fullDark) {
-
-			StopCoroutine("LerpColorFullDark");
-		}
-		if (time > 40) {
-			StartCoroutine("LerpColorDawn");
-		}
-		if (RenderSettings.ambientLight == dawnDuskFog) {
-
-			StopCoroutine("LerpColorFullDark");
-			StopCoroutine("LerpColorDawn");
-		}
-		if (time > 60) {
-			StartCoroutine("LerpColorDay");
-		}
-		if (RenderSettings.ambientLight == fullLight) {
-			StopAllCoroutines();
-		}
-		if (fuckit == true) {
-			StopCoroutine("ColorLerpDayFog");
+//		if (RenderSettings.ambientLight == dawnDuskFog) {
+//			dark = false;
+//			StopCoroutine("LerpColorDawn");
+//		}
+		if (dawn == true) {
+			if (elapsedTime > 120) {
+				StopCoroutine("LerpColorDawn");
+				dark = false;
+				StartCoroutine ("LerpColorDay");
+				masterBool = true;
+			}
 		}
 	}
 
@@ -72,7 +97,7 @@ public class DayNightCycle : MonoBehaviour {
 			progress += increment;
 			yield return new WaitForSeconds(smoothness);
 		}
-		RenderSettings.ambientLight = dayFog;
+//		RenderSettings.ambientLight = dayFog;
 		yield return true;
 
 	}
@@ -91,8 +116,8 @@ public class DayNightCycle : MonoBehaviour {
 			progress1 += increment;
 			yield return new WaitForSeconds(smoothness);
 		}
-		RenderSettings.ambientLight = fullDark;
-		StopCoroutine("LerpColorDayFog");
+//		RenderSettings.ambientLight = fullDark;
+//		StopCoroutine("LerpColorDayFog");
 		yield return true;
 	}
 
@@ -109,7 +134,7 @@ public class DayNightCycle : MonoBehaviour {
 			progress2 += increment;
 			yield return new WaitForSeconds(smoothness);
 		}
-		RenderSettings.ambientLight = dawnDuskFog;
+//		RenderSettings.ambientLight = dawnDuskFog;
 		yield return true;
 	}
 
@@ -126,7 +151,6 @@ public class DayNightCycle : MonoBehaviour {
 			progress3 += increment;
 			yield return new WaitForSeconds(smoothness);
 		}
-		RenderSettings.ambientLight = fullLight;
 		yield return true;
 	}
 	
