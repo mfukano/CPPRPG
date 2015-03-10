@@ -20,6 +20,8 @@ public class OldToCoastalis : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D unit) {
 		if (unit.gameObject.tag == "Player"){
 			DontDestroyOnLoad (player_0);
+			PlayerSpeed playerspeed = player_0.gameObject.GetComponent<PlayerSpeed>();
+			playerspeed.SetWalk ();
 			Application.LoadLevel("Coastalis_Final");
 			player_0.transform.position = new Vector3(newX, newY, newZ);
 		}

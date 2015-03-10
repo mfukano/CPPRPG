@@ -5,14 +5,14 @@ public class SmoothCamera2D : MonoBehaviour {
 
 	public int ratio;
 	private Map myMap;
-	private GameObject myPlayer;
+	private Player myPlayer;
 	public float dampTime = 0.2f;
 	private Vector3 velocity = Vector3.zero;
 	private Vector3 cameraTruePos;
 	public Transform target;
 
 	void Awake () {
-		myPlayer = GameObject.FindGameObjectWithTag ("Player");
+		myPlayer = (Player)GameObject.FindObjectOfType (typeof(Player));// ("Player");
 		target = myPlayer.transform;
 		transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
 	}

@@ -43,6 +43,8 @@ public class PlayerSpeed : MonoBehaviour
 	
 		void SetRun ()
 		{
+				CancelInvoke ("EnergyRestore");
+				isRunning = true;
 				myPlayer.playerSpeed = runSpeed;
 				if (energyRegen) {
 						energyRegen = false;
@@ -50,9 +52,11 @@ public class PlayerSpeed : MonoBehaviour
 				}
 		}
 		
-		void SetWalk ()
+		public void SetWalk ()
 		{
 				// Else-block disables running, sets energy regen
+				isRunning = false;
+				CancelInvoke ("EnergyDrain");
 				myPlayer.playerSpeed = walkSpeed;
 				if (!energyRegen) {
 						energyRegen = true;
@@ -63,16 +67,9 @@ public class PlayerSpeed : MonoBehaviour
 		// Update is called once per frame
 		void Update ()
 		{
-				
 				if (Input.GetKeyDown (KeyCode.LeftShift)) {
-						if (energyRegen)
-								CancelInvoke ("EnergyRestore");
-						isRunning = true;
 						SetRun ();
 				} else if (Input.GetKeyUp (KeyCode.LeftShift)) {
-						if (!energyRegen)
-								CancelInvoke ("EnergyDrain");
-						isRunning = false;
 						SetWalk ();
 				}
 		}

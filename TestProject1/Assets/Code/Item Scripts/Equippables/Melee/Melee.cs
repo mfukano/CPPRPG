@@ -3,9 +3,15 @@ using System.Collections;
 
 public class Melee : Equippables {
 
-	// Use this for initialization
-	void Start () {
-	
+	public override void OnTriggerEnter2D(Collider2D col) {
+		if (col.gameObject.tag == "Enemy") {
+			col.gameObject.GetComponent<Enemy>().takeDamage(this.Damage);
+		}
+		if (col.gameObject.tag == "Player") {
+			player = col.gameObject;
+			Highlighted = true;
+			pickUp = true;
+		}
 	}
 
 }

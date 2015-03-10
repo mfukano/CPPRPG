@@ -10,7 +10,8 @@ public class Player : MonoBehaviour {
 
 	public float startEnergy = 100;
 	public float currentHealth, currentEnergy;
-
+	
+	string currentGun;
 	public float playerSpeed;
 
 	public float bulletSpeed;
@@ -20,6 +21,10 @@ public class Player : MonoBehaviour {
 	private bool isDead;
 	private int SMGSlow=0;
 	Animator anim;
+
+	Vector2 velocity;
+	float horiz;
+	float vert;
 
 	private bool outOfAmmo = false;
 
@@ -35,12 +40,12 @@ public class Player : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		float horiz = Input.GetAxisRaw ("Horizontal");
-		float vert = Input.GetAxisRaw ("Vertical");
+		horiz = Input.GetAxisRaw ("Horizontal");
+		vert = Input.GetAxisRaw ("Vertical");
 		Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		transform.rotation = Quaternion.LookRotation (Vector3.forward, mousePos - transform.position);
 
-		Vector2 velocity = new Vector2 (Mathf.Lerp (0, horiz * playerSpeed, 0.8f),
+		velocity = new Vector2 (Mathf.Lerp (0, horiz * playerSpeed, 0.8f),
 			                                Mathf.Lerp (0, vert * playerSpeed, 0.8f));
 		if ((horiz != 0) || (vert != 0)) {
 			velocity.Normalize ();
@@ -48,7 +53,6 @@ public class Player : MonoBehaviour {
 		velocity *= playerSpeed;
 		rigidbody2D.velocity = velocity;
 		rigidbody2D.angularVelocity = 0;
-
 
 	}
 
@@ -64,7 +68,6 @@ public class Player : MonoBehaviour {
 				}
 	}
 
-
 	public void takeDamage (float dmg_val) {
 		currentHealth -= dmg_val;
 
@@ -76,12 +79,35 @@ public class Player : MonoBehaviour {
 	void Death(){
 		isDead = true;
 		playerSpeed = 0;
+
 	}
+
+	public void OnSceneChange(){
+		rigidbody2D.velocity = new Vector2 (0, 0);
+		anim.SetFloat ("Speed", rigidbody2D.velocity.magnitude);
+		Debug.Log (rigidbody2D.velocity.magnitude);
+		ResetVelocity ();
+	}
+
+	public void ResetVelocity(){
+		velocity = new Vector2 (Mathf.Lerp (0, horiz * playerSpeed, 0.8f),
+		                        Mathf.Lerp (0, vert * playerSpeed, 0.8f));
+		if ((horiz != 0) || (vert != 0)) {
+			velocity.Normalize ();
+		}
+		velocity *= playerSpeed;
+		rigidbody2D.velocity = velocity;
+		rigidbody2D.angularVelocity = 0;
+		}
 	
 	void Update() {
-		Inventory inv = (Inventory)gameObject.GetComponent (typeof(Inventory));
-		string currentGun = inv.inventory [0].itemName;
 		SMGSlow++;
+		Inventory inv = (Inventory)gameObject.GetComponent (typeof(Inventory));
+		if (inv.inventory[0]!= null){
+		    	if(inv.inventory[0].itemName != null){
+						currentGun = inv.inventory [0].itemName;
+			}
+		}
 
 		anim.SetFloat ("Speed", rigidbody2D.velocity.magnitude);
 
@@ -110,6 +136,14 @@ public class Player : MonoBehaviour {
 					outOfAmmo = true;
 				}
 			}
+		}
+	}
+
+	public void OnTriggerEnter2D(Collider2D col) {
+		if (col.gameObject.tag == "ammo") {
+			Inventory inv = (Inventory)GetComponent (typeof(Inventory));
+			inv.ammoCount += Random.Range (20, 100);
+			Destroy (col.gameObject);
 		}
 	}
 

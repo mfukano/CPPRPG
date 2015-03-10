@@ -14,7 +14,7 @@ public class Bullet : Projectile {
 		} else if (col.gameObject.tag == "Player")
 		{
 			Player player = col.gameObject.GetComponent<Player>();
-			player.DamagePlayer(10); //TODO: Change this number
+			player.DamagePlayer((int)this.dmg); //TODO: Change this number
 			Destroy (gameObject);
 		}
 	}
