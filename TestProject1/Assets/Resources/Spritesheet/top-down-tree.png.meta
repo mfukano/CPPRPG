@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 3fc8fec066dc74d8ab3a06b7f42c0972
-=======
-guid: a0cab778cc9691f42b23027d742781bb
->>>>>>> FETCH_HEAD
+guid: 7f47a2ec609d08145ab271f4b442d2c1
 TextureImporter:
   fileIDToRecycleName: {}
   serializedVersion: 2
@@ -29,11 +25,7 @@ TextureImporter:
   maxTextureSize: 1024
   textureSettings:
     filterMode: -1
-<<<<<<< HEAD
     aniso: -1
-=======
-    aniso: 16
->>>>>>> FETCH_HEAD
     mipBias: -1
     wrapMode: -1
   nPOTScale: 0
@@ -45,11 +37,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-<<<<<<< HEAD
   spritePixelsToUnits: 100
-=======
-  spritePixelsToUnits: 1
->>>>>>> FETCH_HEAD
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []

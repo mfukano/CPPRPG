@@ -62,6 +62,10 @@ public class Enemy : MonoBehaviour {
 		
 	}
 
+	void OnDestroy() {
+		GameObject ammo = Instantiate(Resources.Load("Prefabs/Items/ammo"), transform.position, transform.rotation) as GameObject;
+	}
+
 	void OnCollisionEnter2D(Collision2D col) {
 		if (col.gameObject.tag == "Bullet") {
 			takeDamage(col.gameObject.GetComponent<Projectile>().dmg);
@@ -76,9 +80,11 @@ public class Enemy : MonoBehaviour {
 	
 	void Update() {
 		shootCount++;
+
 		// While not paused
 		if (Time.timeScale == 1) 
 		{
+			anim.SetFloat ("Speed", rigidbody2D.velocity.magnitude);
 			if (canShoot)
 			{
 				return;
