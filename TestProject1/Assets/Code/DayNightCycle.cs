@@ -32,7 +32,6 @@ public class DayNightCycle : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		elapsedTime = Time.time - startTime;
-		print (elapsedTime);
 		if (masterBool == true) {
 			if (Time.time > 85) {
 				startTime = Time.time;
@@ -88,7 +87,6 @@ public class DayNightCycle : MonoBehaviour {
 
 	IEnumerator LerpColorDayFog()
 	{
-		print ("dayfogishappening");
 		 //This float will serve as the 3rd parameter of the lerp function.
 		float increment = smoothness/duration; //The amount of change to apply.
 		
@@ -105,7 +103,6 @@ public class DayNightCycle : MonoBehaviour {
 
 	IEnumerator LerpColorFullDark()
 	{
-		print ("fulldarkishappening");
 		StopCoroutine ("LerpColorDayFog");
 		float progress1 = 0; //This float will serve as the 3rd parameter of the lerp function.
 		float increment = smoothness/duration; //The amount of change to apply.
@@ -124,7 +121,6 @@ public class DayNightCycle : MonoBehaviour {
 
 	IEnumerator LerpColorDawn()
 	{
-		print ("dawnishappening");
 		StopCoroutine ("LerpColorFullDark");
 		float progress2 = 0; //This float will serve as the 3rd parameter of the lerp function.
 		float increment = smoothness/duration; //The amount of change to apply.
@@ -141,7 +137,6 @@ public class DayNightCycle : MonoBehaviour {
 
 	IEnumerator LerpColorDay()
 	{
-		print ("dayishappening");
 		StopCoroutine ("LerpColorDawn");
 		float progress3 = 0; //This float will serve as the 3rd parameter of the lerp function.
 		float increment = smoothness/duration; //The amount of change to apply.
