@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Pathfinding;
 
-public enum EnemyAIType { Guard, Patrol, Wander }
+public enum EnemyAIType { Guard = 0, Patrol = 1, Wander = 2 }
 
 public class Enemy_AI_Movement : MonoBehaviour {
 
@@ -12,6 +12,9 @@ public class Enemy_AI_Movement : MonoBehaviour {
 	// My Enemy Script
 	private Enemy myself;
 
+
+	// Random Var for use
+	public Random rand = new Random ();
 
 
 	//The calculated path
@@ -52,12 +55,18 @@ public class Enemy_AI_Movement : MonoBehaviour {
 	// Finite State Machine Vars
 	public FSM myFSM;
 
+	// Decide if we should use random AIType
+	public bool RandomAIType = true;
+
 	public EnemyAIType myAIType;
+	private int EnemyAINum;
 
 	public List<Vector2> guardPoints;
 
 	// Transform direction based of rotation of original sprite
 	public Vector3 myUpVector;
+
+
 
 	#endregion
 
@@ -73,17 +82,40 @@ public class Enemy_AI_Movement : MonoBehaviour {
 		myself = GetComponent<Enemy> ();
 
 		myFSM = new FSM (myself, this);
-		
-		// Default all enemies to Guard
-		myAIType = EnemyAIType.Guard;
-		
-		// FOR NOW, each guard spot is their starting location
-		List<Vector2> myPoint = new List<Vector2> ();
-		myPoint.Add (transform.position);
-		SetAIType (myAIType, myPoint);
-		
-		myFSM.SetStartingState (new State_Guard (myFSM, myself, guardPoints[0]));
 
+		/*switch(myAIType)
+		{
+		case (EnemyAIType.Guard):
+			EnemyAINum = 0;
+		}*/
+
+		// Create list of points
+		List<Vector2> myPoint = new List<Vector2> ();
+
+		// Randomly Assign Type
+		switch(RandomAIType ? Random.Range (0, 3) : (int)myAIType)
+		{
+		case (0):
+			// FOR NOW, each guard spot is their starting location
+			myPoint.Add (transform.position);
+			SetAIType (EnemyAIType.Guard, myPoint);
+			
+			myFSM.SetStartingState (new State_Guard (myFSM, myself, guardPoints[0]));
+			break;
+		case (2):
+			myPoint.Add (transform.position);
+			SetAIType (EnemyAIType.Wander, myPoint);
+			
+			myFSM.SetStartingState (new State_Wander (myFSM, myself));
+			break;
+		default: // Wander
+			myPoint.Add (transform.position);
+			SetAIType (EnemyAIType.Wander, myPoint);
+			
+			myFSM.SetStartingState (new State_Wander (myFSM, myself));
+			break;
+
+		}
 		// Find player Position
 		targetPlayer = GameObject.FindGameObjectWithTag ("Player");
 		playerPos = targetPlayer.transform.position;

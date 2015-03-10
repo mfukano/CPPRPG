@@ -18,6 +18,7 @@ public class State_Attack : State {
 	public override void OnStart()
 	{
 		this.MyPlayer = GameObject.FindGameObjectWithTag("Player");
+		lastKnownLocation = this.MyPlayer.transform.position;
 		//lastKnownLocation = null;
 	}
 	

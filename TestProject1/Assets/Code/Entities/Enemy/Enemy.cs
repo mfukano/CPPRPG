@@ -49,7 +49,10 @@ public class Enemy : MonoBehaviour {
 		currentHealth -= dmg_val;
 		if (currentHealth <= 0) {
 			Death();
+			return;
 		}
+
+		myAI.myFSM.ChangeState (new State_Attack (myAI.myFSM, this));
 	}
 	
 	void Death(){
@@ -61,7 +64,7 @@ public class Enemy : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D col) {
 		if (col.gameObject.tag == "Bullet") {
-			takeDamage(200);
+			takeDamage(col.gameObject.GetComponent<Projectile>().dmg);
 			Destroy(col.gameObject);
 		}
 		if (col.gameObject.tag == "Sword") {

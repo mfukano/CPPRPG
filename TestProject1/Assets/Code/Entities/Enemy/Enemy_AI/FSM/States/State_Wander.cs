@@ -1,15 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 using Pathfinding;
 
-public class State_GotoLocationAware : State {
+public class State_Wander : State {
 
 	// Location to move
 	private Vector2 location;
-
+	
 	public bool AmIRunning { get; private set; }
-
+	
 	//The calculated path
 	public Path path;
 	private Seeker seeker;
@@ -17,17 +16,30 @@ public class State_GotoLocationAware : State {
 	private bool endOfPath;
 	private int NEXTWAYPOINTDISTANCE = 3;
 
+	private bool goodPath;
+	private bool waitingForPath;
+	private int MIN_DISTANCE_AWAY = 20;
+	private int MAX_DISTANCE_AWAY = 300;
+	
 	// Constructor
-	public State_GotoLocationAware(FSM fsm, Enemy owner, Vector2 theLocation, bool isRunning)
+	public State_Wander(FSM fsm, Enemy owner)
 		: base(fsm, owner)
 	{
-		this.location = theLocation;
-		this.AmIRunning = isRunning;
+		this.AmIRunning = false;
+		location = Vector2.zero;
 	}
 	
 	// Called when the state is activated
 	public override void OnStart()
 	{
+		// Path is bad by default
+		this.goodPath = false;
+		// Default is waiting for path
+		this.waitingForPath = true;
+		// Get random point
+		location = GetRandomPoint ();
+
+
 		seeker = Owner.gameObject.GetComponent<Seeker> ();
 		//this.MyPlayer = GameObject.FindGameObjectWithTag("Player");
 		seeker.StartPath (Owner.transform.position, location, OnPathComplete);
@@ -45,54 +57,30 @@ public class State_GotoLocationAware : State {
 		{
 			if(path == null)
 			{
+				if (!waitingForPath)
+				{
+					location = GetRandomPoint();
+					seeker.StartPath(Owner.transform.position, location, OnPathComplete);
+					waitingForPath = true;
+					goodPath = false;
+				}
 				// Nothing to do yet.
 				return;
 			}
-
+			
 			// We reached the end of the path
 			if (currentWaypoint >= path.vectorPath.Count) {
 				Debug.Log ("End Of Path Reached, still no enemy.");
 				endOfPath = true;
 				Owner.rigidbody2D.velocity = Vector2.zero;
 				//doIHaveALastKnownLocation = false;
+				location = GetRandomPoint();
+				seeker.StartPath(Owner.transform.position, location, OnPathComplete);
+				waitingForPath = true;
+				goodPath = false;
 
-				// If we were walking that means we made it back to our post
-				if(!AmIRunning)
-				{
-					myFSM.ChangeState(new State_Guard(this.myFSM, this.Owner, Owner.myAI.guardPoints[0]));
-					return;
-				}
-
-				// Return to Post
-				switch(Owner.myAI.myAIType)
-				{
-					case (EnemyAIType.Guard): 
-						myFSM.ChangeState(new State_GotoLocationAware(
-						this.myFSM,
-						this.Owner,
-						Owner.myAI.guardPoints[0],
-						false)) ;// Not running
-						break;
-
-					case (EnemyAIType.Patrol): 
-						myFSM.ChangeState(new State_GotoLocationAware(
-						this.myFSM,
-						this.Owner,
-						Owner.myAI.guardPoints[0],
-						false)); // Not running
-						break;
-
-					case (EnemyAIType.Wander): 
-						 myFSM.ChangeState(new State_Wander(
-						this.myFSM, 
-						this.Owner));
-						break;
-
-					default:
-						break;
-				}
 			}
-
+			
 			//Direction to the next waypoint
 			if (!endOfPath){
 				//Debug.Log ("Not at end of path");
@@ -118,13 +106,13 @@ public class State_GotoLocationAware : State {
 			}
 		}
 	}
-
+	
 	// Called when leaving the state
 	public override void OnExit()
 	{
-		this.myFSM.myAIBrain.doISeeThePlayer = false; // COULD BE A PROBLEM
+		//this.myFSM.myAIBrain.doISeeThePlayer = false; // COULD BE A PROBLEM
 	}
-
+	
 	// Helper Function
 	public void OnPathComplete(Path p)
 	{
@@ -134,7 +122,23 @@ public class State_GotoLocationAware : State {
 			//Reset the waypoint counter
 			currentWaypoint = 0;
 			endOfPath = false;
+			goodPath = true;
+			waitingForPath = false;
+			return;
 		}
+		goodPath = false;
+		waitingForPath = false;
 	}
+
+	private Vector2 GetRandomPoint()
+	{
+		// Get random point
+		Vector2 dir = Random.insideUnitCircle;
+		int dist = Random.Range (MIN_DISTANCE_AWAY, MAX_DISTANCE_AWAY);
+		dir = dir.normalized;
+		dir *= dist;
+		return dir;
+	}
+
 
 }
