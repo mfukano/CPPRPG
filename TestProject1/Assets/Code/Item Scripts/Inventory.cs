@@ -7,6 +7,8 @@ public class Inventory : MonoBehaviour {
 	public List<Item> inventory = new List<Item>();
 	public int slotsX = 5;
 	public int slotsY = 5;
+	public int size;
+
 	public GUISkin skin, hand, holster;
 	private int handItem = 0;
 	private int pocketItem = 1;
@@ -31,8 +33,9 @@ public class Inventory : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		size = (slotsX * slotsY) + 2;
 		Time.timeScale = 1;
-		for (int i = 0; i < (slotsX*slotsY)+2; i++) {
+		for (int i = 0; i < size; i++) {
 			inventory.Add (new Item());
 		}
 		style.normal.textColor = Color.white;

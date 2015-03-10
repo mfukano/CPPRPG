@@ -25,6 +25,8 @@ public class Item : MonoBehaviour {
 	// actual item constructor with contributes
 	public Item(string name, int ID, int weight) {
 		itemName = name;
+		Debug.Log ("constructor itemName: " + itemName);
+		Debug.Log ("constructor name: " + name);
 		itemID = ID;
 		itemWeight = weight;
 		itemIcon = Resources.Load<Texture2D> ("Item_Sprites/" + name);
@@ -94,12 +96,12 @@ public class Item : MonoBehaviour {
 			k = 2;
 		}
 		for ( ; k < count; k++) {
-			if (inv.inventory[k].itemName == null) {
+			if (inv.inventory[k]==null){//.itemName == null) {
 				// add the item to the inventory and increase current weight
 				inv.inventory[k] = this;
 				inv.currWeight += this.itemWeight;
 				gameObject.SetActive(false);
-				Debug.Log (inv.currWeight);
+				DontDestroyOnLoad (gameObject);
 				break;
 			}
 		}

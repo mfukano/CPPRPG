@@ -82,7 +82,7 @@ public class Enemy_AI_Ranged : MonoBehaviour {
 		float angle = Vector3.Angle (direction, transform.up);
 		if (angle < fieldOfViewAngle * 0.5f) 
 		{
-			Debug.Log ("In My angle.");
+			//Debug.Log ("In My angle.");
 			/*
 			// Save current object layer
 			int oldLayer = gameObject.layer;
@@ -110,7 +110,7 @@ public class Enemy_AI_Ranged : MonoBehaviour {
 						// Set last global sighting is player current position
 						LastKnownLocation = player.transform.position;
 						
-						Debug.Log("See the player!");
+						//Debug.Log("See the player!");
 					}
 				}
 			}

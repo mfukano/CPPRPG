@@ -17,6 +17,8 @@ public class Player : MonoBehaviour {
 	public float bulletSpeed;
 	public bool bulletInitVel;
 
+	public Inventory inv;
+
 	private float velMag;
 	private bool isDead;
 	private int SMGSlow=0;
@@ -101,7 +103,7 @@ public class Player : MonoBehaviour {
 		}
 	
 	void Update() {
-		Inventory inv = (Inventory)gameObject.GetComponent (typeof(Inventory));
+		inv = (Inventory)gameObject.GetComponent (typeof(Inventory));
 		if (inv.inventory[0]!= null){
 		    	if(inv.inventory[0].itemName != null){
 						currentGun = inv.inventory [0].itemName;
