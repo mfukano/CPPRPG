@@ -101,11 +101,11 @@ public class Player : MonoBehaviour {
 		}
 	
 	void Update() {
+		SMGSlow++;
 		Inventory inv = (Inventory)gameObject.GetComponent (typeof(Inventory));
 		if (inv.inventory[0]!= null){
 		    	if(inv.inventory[0].itemName != null){
 						currentGun = inv.inventory [0].itemName;
-						SMGSlow++;
 			}
 		}
 
