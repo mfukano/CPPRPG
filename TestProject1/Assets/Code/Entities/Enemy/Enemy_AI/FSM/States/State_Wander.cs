@@ -70,7 +70,7 @@ public class State_Wander : State {
 			
 			// We reached the end of the path
 			if (currentWaypoint >= path.vectorPath.Count) {
-				Debug.Log ("End Of Path Reached, still no enemy.");
+				//Debug.Log ("End Of Path Reached, still no enemy.");
 				endOfPath = true;
 				Owner.rigidbody2D.velocity = Vector2.zero;
 				//doIHaveALastKnownLocation = false;
@@ -85,11 +85,11 @@ public class State_Wander : State {
 			if (!endOfPath){
 				//Debug.Log ("Not at end of path");
 				// If I see the player go back to attack mode.
-				if (DoISeeThisGuy())
+				/*if (DoISeeThisGuy())
 				{
 					myFSM.ChangeState(new State_Attack(myFSM, this.Owner));
 					return;
-				}
+				}*/
 				Vector3 dir = (path.vectorPath[currentWaypoint]-Owner.transform.position).normalized;
 				dir *= (AmIRunning ? Owner.myAI.runSpeed : Owner.myAI.walkSpeed) * Time.fixedDeltaTime;
 				Owner.rigidbody2D.velocity = dir;
@@ -116,7 +116,7 @@ public class State_Wander : State {
 	// Helper Function
 	public void OnPathComplete(Path p)
 	{
-		Debug.Log ("Yay, we got a path back from State_GotoLocationAware. Did it have an error? "+p.error);
+		//Debug.Log ("Yay, we got a path back from State_GotoLocationAware. Did it have an error? "+p.error);
 		if (!p.error) {
 			path = p;
 			//Reset the waypoint counter
@@ -128,6 +128,7 @@ public class State_Wander : State {
 		}
 		goodPath = false;
 		waitingForPath = false;
+		location = GetRandomPoint ();
 	}
 
 	private Vector2 GetRandomPoint()
