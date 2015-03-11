@@ -148,6 +148,8 @@ public class AstarPathEditor : Editor {
 	public static bool stylesLoaded = false;
 	
 	public static GUISkin astarSkin;
+
+#if UNITY_EDITOR
 	public static GUIStyle graphBoxStyle;
 	public static GUIStyle topBoxHeaderStyle;
 	public static GUIStyle graphDeleteButtonStyle;
@@ -157,6 +159,7 @@ public class AstarPathEditor : Editor {
 	public static GUIStyle thinHelpBox;
 	public static GUIStyle upArrow;
 	public static GUIStyle downArrow;
+#endif
 
 #endregion
 	//End Styles

@@ -7,6 +7,7 @@ public class MainMenu : MonoBehaviour {
 	public float buttonWidth = 0.5f;
 	public float buttonHeight = 0.12f;
 	public float pos = 0.25f;
+
 	public GUIStyle style;
 
 	void Start() {
