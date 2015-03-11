@@ -59,11 +59,8 @@ public class Enemy : MonoBehaviour {
 		isDead = true;
 		enemySpeed = 0;
 		Destroy (gameObject);
-		
-	}
-
-	void OnDestroy() {
 		GameObject ammo = Instantiate(Resources.Load("Prefabs/Items/ammo"), transform.position, transform.rotation) as GameObject;
+		
 	}
 
 	void OnCollisionEnter2D(Collision2D col) {
