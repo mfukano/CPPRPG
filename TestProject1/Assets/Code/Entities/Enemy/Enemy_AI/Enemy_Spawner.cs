@@ -26,19 +26,21 @@ public class Enemy_Spawner : MonoBehaviour {
 
 	void Update()
 	{
-		/*
-		 * 
-		 * 
-		 * 
-		 */
+		while (CurrentRandomEnemies < MAX_CURRENT_ENEMIES)
+		{
+			Vector2 spawnPoint = GetRandomPointInBox();
+			Instantiate(Resources.Load ("Prefabs/Enemies/Enemy_Wander"), spawnPoint,
+			            Quaternion.AngleAxis(180, Vector3.forward));
+			CurrentRandomEnemies++;
+		}
 	}
 
 	// Helper functions
 	public Vector2 GetRandomPointInBox()
 	{
 		// Find random point in box
-		float dx = Random.Range (-SpawnArea.size.x, SpawnArea.size.x);
-		float dy = Random.Range (-SpawnArea.size.y, SpawnArea.size.y);
+		float dx = Random.Range (-SpawnArea.size.x / 2, SpawnArea.size.x / 2);
+		float dy = Random.Range (-SpawnArea.size.y / 2, SpawnArea.size.y / 2);
 		return new Vector2 (dx, dy);
 	}
 

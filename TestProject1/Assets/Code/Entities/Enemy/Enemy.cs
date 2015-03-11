@@ -21,10 +21,13 @@ public class Enemy : MonoBehaviour {
 
 	// AI
 	public Enemy_AI_Movement myAI;
+	private Enemy_Spawner mySpawner;
+	public bool AmIRandom = true;
 	
 	void Start() {
 		anim = GetComponent<Animator>();
 		myAI = GetComponent<Enemy_AI_Movement> ();
+		mySpawner = GameObject.FindGameObjectWithTag ("AI_Spawner").GetComponent<Enemy_Spawner> ();
 		startHealth = maxHealth;
 		currentHealth = startHealth;
 		isDead = false;
@@ -58,6 +61,10 @@ public class Enemy : MonoBehaviour {
 	void Death(){
 		isDead = true;
 		enemySpeed = 0;
+		if (AmIRandom)
+		{
+			mySpawner.CurrentRandomEnemies--;
+		}
 		Destroy (gameObject);
 		GameObject ammo = Instantiate(Resources.Load("Prefabs/Items/ammo"), transform.position, transform.rotation) as GameObject;
 		
