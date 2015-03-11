@@ -55,7 +55,7 @@ public class Player : MonoBehaviour {
 		velocity *= playerSpeed;
 		rigidbody2D.velocity = velocity;
 		rigidbody2D.angularVelocity = 0;
-		Debug.Log (velocity);
+//		Debug.Log (velocity);
 
 	}
 

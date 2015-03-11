@@ -51,7 +51,7 @@ public class State_GotoLocationAware : State {
 
 			// We reached the end of the path
 			if (currentWaypoint >= path.vectorPath.Count) {
-				Debug.Log ("End Of Path Reached, still no enemy.");
+//				Debug.Log ("End Of Path Reached, still no enemy.");
 				endOfPath = true;
 				Owner.rigidbody2D.velocity = Vector2.zero;
 				//doIHaveALastKnownLocation = false;
@@ -128,7 +128,7 @@ public class State_GotoLocationAware : State {
 	// Helper Function
 	public void OnPathComplete(Path p)
 	{
-		Debug.Log ("Yay, we got a path back from State_GotoLocationAware. Did it have an error? "+p.error);
+//		Debug.Log ("Yay, we got a path back from State_GotoLocationAware. Did it have an error? "+p.error);
 		if (!p.error) {
 			path = p;
 			//Reset the waypoint counter
