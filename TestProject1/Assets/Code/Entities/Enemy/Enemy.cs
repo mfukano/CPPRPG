@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour {
 	private float velMag;
 	private bool isDead;
 	private string gun;
-	private int shootRate;
+	private int shootRate = 75;
 	private int shootCount;
 	private bool canShoot;
 	Animator anim;
