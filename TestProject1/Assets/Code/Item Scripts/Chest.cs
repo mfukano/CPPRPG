@@ -18,7 +18,7 @@ public class Chest : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		myObjects = Resources.LoadAll<GameObject>("Prefabs/Items/Food");
+		myObjects = Resources.LoadAll<GameObject>("Prefabs/Items");
 		spriteRenderer = gameObject.GetComponent<SpriteRenderer> ();
 	}
 

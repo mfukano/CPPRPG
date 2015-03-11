@@ -27,7 +27,7 @@ public class PlayerSpeed : MonoBehaviour
 
 		void EnergyDrain ()
 		{
-				if (currentEnergy >= 2) {
+				if (currentEnergy >= 2 && myPlayer.rigidbody2D.velocity.magnitude != 0) {
 						currentEnergy -= 2;
 						SetPlayerEnergy ();
 				} else {
@@ -73,7 +73,7 @@ public class PlayerSpeed : MonoBehaviour
 		// Update is called once per frame
 		void Update ()
 		{
-				if (Input.GetKeyDown (KeyCode.LeftShift) && currentEnergy > 2) {
+				if (Input.GetKeyDown (KeyCode.LeftShift) && currentEnergy > 2 && myPlayer.rigidbody2D.velocity.magnitude != 0) {
 						SetRun ();
 				} else if (Input.GetKeyUp (KeyCode.LeftShift)) {
 						SetWalk ();
