@@ -69,15 +69,16 @@ public class PlayerSpeed : MonoBehaviour
 						InvokeRepeating ("EnergyRestore", 0.5F, 0.3F);
 				}
 		}
+	
 
 		// Update is called once per frame
 		void Update ()
 		{
-				if (Input.GetKeyDown (KeyCode.LeftShift) && currentEnergy > 2 && myPlayer.rigidbody2D.velocity.magnitude != 0) {
+			if (Input.GetKeyDown (KeyCode.LeftShift) && currentEnergy > 2 && myPlayer.rigidbody2D.velocity.magnitude != 0) {
 						SetRun ();
-				} else if (Input.GetKeyUp (KeyCode.LeftShift)) {
+			} else if (Input.GetKeyUp (KeyCode.LeftShift)) {
 						SetWalk ();
-				}
+			}
 		}
 
 }

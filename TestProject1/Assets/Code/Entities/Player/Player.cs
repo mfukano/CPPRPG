@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour {
 
@@ -20,7 +21,7 @@ public class Player : MonoBehaviour {
 	public Inventory inv;
 
 	private float velMag;
-	private bool isDead;
+	public bool isDead;
 	private int SMGSlow=0;
 	Animator anim;
 
@@ -72,18 +73,13 @@ public class Player : MonoBehaviour {
 	}
 
 	public void takeDamage (float dmg_val) {
-		currentHealth -= dmg_val;
+		this.currentHealth -= dmg_val;
 
 		if (currentHealth <= 0) {
-			Death();
+			currentHealth = 0;
+			isDead = true;
 				}
 		}
-
-	void Death(){
-		isDead = true;
-		playerSpeed = 0;
-
-	}
 
 	public void OnSceneChange(){
 		rigidbody2D.velocity = new Vector2 (0, 0);
@@ -106,6 +102,12 @@ public class Player : MonoBehaviour {
 	void Update() {
 		inv = (Inventory)gameObject.GetComponent (typeof(Inventory));
 		SMGSlow++;
+
+		if (currentHealth <= 0) {
+				currentHealth = 0;
+				isDead = true;
+			}
+
 		if (inv.inventory[0]!= null){
 		    	if(inv.inventory[0].itemName != null){
 						currentGun = inv.inventory [0].itemName;
@@ -150,8 +152,8 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	public void DamagePlayer(int damage)
+	/*public void DamagePlayer(int damage)
 	{
-		this.currentHealth -= damage;
-	}
+		takeDamage ();
+	}*/
 }

@@ -21,13 +21,13 @@ public class TestMenu : MonoBehaviour {
 		GUI.Label (new Rect (Screen.width*pos, Screen.height*pos, Screen.width*buttonWidth, Screen.height*buttonHeight), "Test Suite", style);
 		//display menu buttons
 		if (GUI.Button (new Rect (Screen.width*pos, (float)Screen.height*1.5F*pos, Screen.width*buttonWidth, (float)Screen.height*0.5F*buttonHeight), "Low Health Runner")){
-			Application.LoadLevel("Aridae_Final");
+			Application.LoadLevel("LowHealthRunner");
 		}
 		if (GUI.Button (new Rect (Screen.width * pos, (float)Screen.height*2.0F* pos, Screen.width*buttonWidth, (float)Screen.height*0.5F*buttonHeight), "Day Night Magic")) {
 			Application.LoadLevel ("Day_Night_Magic");
 		}
 		if (GUI.Button (new Rect (Screen.width*pos, (float)Screen.height*2.5F*pos, Screen.width*buttonWidth, (float)Screen.height*0.5F*buttonHeight), "Mapper Quest")) {
-			Application.LoadLevel ("Northern_Wastes");
+			Application.LoadLevel ("MapperQuest1");
 		}
 		if (GUI.Button (new Rect (Screen.width*pos, (float)Screen.height*3.0F*pos, Screen.width*buttonWidth, (float)Screen.height*0.5F*buttonHeight), "Back To Main Menu")) {
 			Application.LoadLevel ("MainMenu");
