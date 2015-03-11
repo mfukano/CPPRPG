@@ -8,7 +8,7 @@ public class Inventory : MonoBehaviour {
 	public int slotsX = 5;
 	public int slotsY = 5;
 	public int size;
-
+	
 	public GUISkin skin, hand, holster;
 	private int handItem = 0;
 	private int pocketItem = 1;

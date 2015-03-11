@@ -15,9 +15,10 @@ namespace Pathfinding
 {
 	public class AstarUpdateWindow : EditorWindow
 	{
-
+#if UNITY_EDITOR
 		public static GUIStyle largeStyle;
 		public static GUIStyle normalStyle;
+#endif
 		public System.Version version;
 		public string summary;
 		public string downloadURL;

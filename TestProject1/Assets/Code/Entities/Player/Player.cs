@@ -55,6 +55,7 @@ public class Player : MonoBehaviour {
 		velocity *= playerSpeed;
 		rigidbody2D.velocity = velocity;
 		rigidbody2D.angularVelocity = 0;
+		Debug.Log (velocity);
 
 	}
 
@@ -142,7 +143,7 @@ public class Player : MonoBehaviour {
 	}
 
 	public void OnTriggerEnter2D(Collider2D col) {
-		if (col.gameObject.tag == "ammo") {
+		if (col.gameObject.tag == "Ammo") {
 			Inventory inv = (Inventory)GetComponent (typeof(Inventory));
 			inv.ammoCount += Random.Range (20, 100);
 			Destroy (col.gameObject);
