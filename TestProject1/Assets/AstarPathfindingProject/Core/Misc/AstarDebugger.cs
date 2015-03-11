@@ -81,10 +81,9 @@ public class AstarDebugger : MonoBehaviour {
 	private float[] fpsDrops;
 	
 	private Rect boxRect;
-
+	
 	private GUIStyle style;
-
-
+	
 	private Camera cam;
 	private LineRenderer lineRend;
 	

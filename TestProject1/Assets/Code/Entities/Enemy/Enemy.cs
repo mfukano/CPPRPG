@@ -21,18 +21,14 @@ public class Enemy : MonoBehaviour {
 
 	// AI
 	public Enemy_AI_Movement myAI;
-	public Enemy_Spawner mySpawner;
-	public bool AmIARandom;
 	
 	void Start() {
 		anim = GetComponent<Animator>();
 		myAI = GetComponent<Enemy_AI_Movement> ();
-		mySpawner = GameObject.FindGameObjectWithTag("AI_Spawner").GetComponent<Enemy_Spawner>();
 		startHealth = maxHealth;
 		currentHealth = startHealth;
 		isDead = false;
 		canShoot = false;
-		AmIARandom = true;
 
 		gun = "Pistol";
 		shootCount = 0;
@@ -62,12 +58,6 @@ public class Enemy : MonoBehaviour {
 	void Death(){
 		isDead = true;
 		enemySpeed = 0;
-		if(AmIARandom)
-		{
-			Debug.Log ("A Random Died");
-			//mySpawner.ListEnemies.Remove(this);
-			mySpawner.CurrentRandomEnemies--;
-		}
 		Destroy (gameObject);
 		GameObject ammo = Instantiate(Resources.Load("Prefabs/Items/ammo"), transform.position, transform.rotation) as GameObject;
 		
@@ -78,11 +68,13 @@ public class Enemy : MonoBehaviour {
 			takeDamage(col.gameObject.GetComponent<Projectile>().dmg);
 			Destroy(col.gameObject);
 		}
-		if (col.gameObject.tag == "Sword") {
+		/*if (col.gameObject.tag == "Sword") {
 			takeDamage(350);
 			//Destroy(col.gameObject);
-		}
+		}*/
 	}
+
+
 
 	
 	void Update() {

@@ -258,7 +258,6 @@ public class Enemy_AI_Movement : MonoBehaviour {
 			// This block of code checks to see if we have line of sight to the player
 			RaycastHit2D[] hits = 
 				Physics2D.RaycastAll(transform.position, direction.normalized, fieldOfViewDistance); //layerToIgnore);
-			bool WasThereAWall = false;
 			foreach (RaycastHit2D hit in hits)
 			{
 				if (hit)
@@ -266,9 +265,9 @@ public class Enemy_AI_Movement : MonoBehaviour {
 					if (hit.collider.CompareTag("Wall"))
 					{
 						// We hit a wall before a player so we can't see him
-						WasThereAWall = true;
 						break;
-					} else if(hit.collider.gameObject == targetPlayer && !WasThereAWall)
+					}
+					if(hit.collider.gameObject == targetPlayer)
 					{
 						doISeeThePlayer = true;
 						doIKnowWhereThePlayerIs = true;
