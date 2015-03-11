@@ -18,7 +18,6 @@ public class MainMenu : MonoBehaviour {
 	void OnGUI(){
 		//display background texture
 		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), backgroundTexture);
-		GUI.Label (new Rect (Screen.width*pos, (Screen.height*pos)-35, Screen.width*buttonWidth, Screen.height*buttonHeight), "Not Zombies", style);
 		//display menu buttons
 		if (GUI.Button (new Rect (Screen.width*pos, (float)Screen.height*1.75F*pos, Screen.width*buttonWidth, (float)Screen.height*0.75F*buttonHeight), "New Game")){
 			Application.LoadLevel("Aridae_Final");
