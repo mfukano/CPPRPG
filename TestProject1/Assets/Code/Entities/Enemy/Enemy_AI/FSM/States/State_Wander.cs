@@ -18,7 +18,7 @@ public class State_Wander : State {
 
 	private bool goodPath;
 	private bool waitingForPath;
-	private int MIN_DISTANCE_AWAY = 20;
+	private int MIN_DISTANCE_AWAY = 40;
 	private int MAX_DISTANCE_AWAY = 300;
 	
 	// Constructor
@@ -26,7 +26,7 @@ public class State_Wander : State {
 		: base(fsm, owner)
 	{
 		this.AmIRunning = false;
-		location = Vector2.zero;
+		this.location = GetRandomPoint ();
 	}
 	
 	// Called when the state is activated
@@ -70,26 +70,21 @@ public class State_Wander : State {
 			
 			// We reached the end of the path
 			if (currentWaypoint >= path.vectorPath.Count) {
-				Debug.Log ("End Of Path Reached, still no enemy.");
+				//Debug.Log ("End Of Path Reached, still no enemy.");
 				endOfPath = true;
 				Owner.rigidbody2D.velocity = Vector2.zero;
 				//doIHaveALastKnownLocation = false;
 				location = GetRandomPoint();
-				seeker.StartPath(Owner.transform.position, location, OnPathComplete);
-				waitingForPath = true;
-				goodPath = false;
-
+				if (!waitingForPath)
+				{
+					seeker.StartPath(Owner.transform.position, location, OnPathComplete);
+					waitingForPath = true;
+					goodPath = false;
+				}
 			}
 			
 			//Direction to the next waypoint
 			if (!endOfPath){
-				//Debug.Log ("Not at end of path");
-				// If I see the player go back to attack mode.
-				if (DoISeeThisGuy())
-				{
-					myFSM.ChangeState(new State_Attack(myFSM, this.Owner));
-					return;
-				}
 				Vector3 dir = (path.vectorPath[currentWaypoint]-Owner.transform.position).normalized;
 				dir *= (AmIRunning ? Owner.myAI.runSpeed : Owner.myAI.walkSpeed) * Time.fixedDeltaTime;
 				Owner.rigidbody2D.velocity = dir;
@@ -128,6 +123,7 @@ public class State_Wander : State {
 		}
 		goodPath = false;
 		waitingForPath = false;
+		location = GetRandomPoint ();
 	}
 
 	private Vector2 GetRandomPoint()
@@ -137,7 +133,10 @@ public class State_Wander : State {
 		int dist = Random.Range (MIN_DISTANCE_AWAY, MAX_DISTANCE_AWAY);
 		dir = dir.normalized;
 		dir *= dist;
-		return dir;
+		Vector2 finalPos = 
+			this.Owner.gameObject.transform.position +
+						new Vector3 (dir.x, dir.y, 0);
+		return finalPos;
 	}
 
 
