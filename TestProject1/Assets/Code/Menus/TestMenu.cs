@@ -24,7 +24,7 @@ public class TestMenu : MonoBehaviour {
 			Application.LoadLevel("Aridae_Final");
 		}
 		if (GUI.Button (new Rect (Screen.width * pos, (float)Screen.height*2.0F* pos, Screen.width*buttonWidth, (float)Screen.height*0.5F*buttonHeight), "Day Night Magic")) {
-			Application.LoadLevel ("Boreal");
+			Application.LoadLevel ("Day_Night_Magic");
 		}
 		if (GUI.Button (new Rect (Screen.width*pos, (float)Screen.height*2.5F*pos, Screen.width*buttonWidth, (float)Screen.height*0.5F*buttonHeight), "Mapper Quest")) {
 			Application.LoadLevel ("Northern_Wastes");
