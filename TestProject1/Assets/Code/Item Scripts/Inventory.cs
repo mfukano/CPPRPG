@@ -38,7 +38,7 @@ public class Inventory : MonoBehaviour {
 		for (int i = 0; i < size; i++) {
 			inventory.Add (new Item());
 		}
-		style.normal.textColor = Color.white;
+		style.normal.textColor = Color.black;
 		style.fontSize = 15;
 	}
 
@@ -170,7 +170,7 @@ public class Inventory : MonoBehaviour {
 		GUI.DrawTexture (currEquipped, inventory[handItem].itemIcon);
 		// if the equipped item is ranged
 		if (inventory[handItem].getAmmoPerShot() != 0) {
-			GUI.Label (new Rect(20, Screen.height - 88, 48, 48), ammoCount.ToString());
+			GUI.Label (new Rect(20, Screen.height - 88, 48, 48), ammoCount.ToString(), style);
 		}
 		if (currEquipped.Contains(Event.current.mousePosition)) {
 			GUI.Box (new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y, statsX, statsY), createItemStats(inventory[handItem]));
