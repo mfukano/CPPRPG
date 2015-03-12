@@ -19,6 +19,12 @@ public class Item : MonoBehaviour {
 	protected GameObject player = null;
 	private bool tooMuchWeight = false;
 
+	public GUIStyle style2;
+
+	void Start() {
+
+	}
+
 	// empty item constructor for initilization in the inventory
 	public Item() { }
 
@@ -38,14 +44,20 @@ public class Item : MonoBehaviour {
 			GUI.Box (new Rect (680, 40, 200, 50), labelText);
 		}
 		if (tooMuchWeight) {
+			#if UNITY_EDITOR
+			style2.normal.textColor = Color.red;
+			style2.fontSize = 30;
+			#endif
 			StartCoroutine(TooMuchWeight());
 		}
 	}
 
 	IEnumerator TooMuchWeight () {
-		GUI.Label (new Rect(20, Screen.height - 128, 300, 48), "Not enough space in your backpack!");
+		#if UNITY_EDITOR
+		GUI.Label (new Rect(Screen.width/2 - 200, Screen.height/2 - 150, 300, 300), "Not enough space in your backpack!", style2);
 		yield return new WaitForSeconds (1);
 		tooMuchWeight = false;
+		#endif
 	}
 
 	// Update is called once per frame
