@@ -32,6 +32,9 @@ public class Projectile : MonoBehaviour {
 		case("Pistol"):
 			GameObject bullet = Instantiate(Resources.Load("Prefabs/bullet"), pd3.position, pd3.rotation) as GameObject;
 			break;
+		case("Sniper Rifle"):
+			GameObject sniper_bullet = Instantiate(Resources.Load("Prefabs/bullet"), pd3.position, pd3.rotation) as GameObject;
+			break;
 		case("SMG"):
 			GameObject smg_bullet = Instantiate(Resources.Load("Prefabs/bullet"), pd3.position, pd3.rotation) as GameObject;
 			break;
