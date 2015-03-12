@@ -23,11 +23,11 @@ public class LoadPlayerStats : MonoBehaviour
 #if UNITY_EDITOR
 		style.normal.textColor = new Color(0.8F, 0, 0.2F, 0.95F);
 		style.alignment = TextAnchor.UpperCenter;
-		style.fontSize = 30;
+		style.fontSize = 100;
 #endif
-		GUI.TextField (new Rect(Screen.width*0.25F,Screen.height*0.25F, Screen.width*0.5F,Screen.height*0.25F), "You died.", style);
+		GUI.TextField (new Rect(Screen.width*0.25F,Screen.height*0.25F, Screen.width*0.5F,Screen.height*0.25F), "U DED!?", style);
 		myPlayer.gameObject.SetActive (false);
-		yield return new WaitForSeconds (3);
+		yield return new WaitForSeconds (0.2F);
 		Application.LoadLevel ("MainMenu");
 	}
 
