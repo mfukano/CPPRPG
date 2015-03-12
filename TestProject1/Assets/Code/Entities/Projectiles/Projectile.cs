@@ -17,11 +17,11 @@ public class Projectile : MonoBehaviour {
 			Transform pd2 = transform.Find("projectile_direction2");
 			Transform pd4 = transform.Find("projectile_direction4");
 			Transform pd5 = transform.Find("projectile_direction5");
-			GameObject bullet1 = Instantiate(Resources.Load("Prefabs/bullet"), pd1.position, pd1.rotation) as GameObject;
-			GameObject bullet2 = Instantiate(Resources.Load("Prefabs/bullet"), pd2.position, pd2.rotation) as GameObject;
-			GameObject bullet3 = Instantiate(Resources.Load("Prefabs/bullet"), pd3.position, pd3.rotation) as GameObject;
-			GameObject bullet4 = Instantiate(Resources.Load("Prefabs/bullet"), pd4.position, pd4.rotation) as GameObject;
-			GameObject bullet5 = Instantiate(Resources.Load("Prefabs/bullet"), pd5.position, pd5.rotation) as GameObject;
+			GameObject bullet1 = Instantiate(Resources.Load("Prefabs/ShotgunPellet"), pd1.position, pd1.rotation) as GameObject;
+			GameObject bullet2 = Instantiate(Resources.Load("Prefabs/ShotgunPellet"), pd2.position, pd2.rotation) as GameObject;
+			GameObject bullet3 = Instantiate(Resources.Load("Prefabs/ShotgunPellet"), pd3.position, pd3.rotation) as GameObject;
+			GameObject bullet4 = Instantiate(Resources.Load("Prefabs/ShotgunPellet"), pd4.position, pd4.rotation) as GameObject;
+			GameObject bullet5 = Instantiate(Resources.Load("Prefabs/ShotgunPellet"), pd5.position, pd5.rotation) as GameObject;
 			break;
 		case("Laser Pistol"):
 			GameObject laser = Instantiate(Resources.Load("Prefabs/Laser"), pd3.position, pd3.rotation) as GameObject;
