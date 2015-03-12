@@ -30,10 +30,15 @@ public class Player : MonoBehaviour {
 	float vert;
 
 	private bool outOfAmmo = false;
+	public GUIStyle style;
 
 	void Start() {
 		anim = GetComponent<Animator>();
 		currentHealth = startHealth;
+		#if UNITY_EDITOR
+		style.normal.textColor = Color.red;
+		style.fontSize = 30;
+		#endif
 	}
 
 	void OnGUI() {
@@ -61,15 +66,17 @@ public class Player : MonoBehaviour {
 	}
 
 	IEnumerator NotEnoughAmmo () {
-		GUI.Label (new Rect(20, Screen.height - 128, 300, 48), "Not enough ammo!");
+		#if UNITY_EDITOR
+		GUI.Label (new Rect(Screen.width/2 - 150, Screen.height/2 - 150, 300, 300), "Not enough ammo!", style);
 		yield return new WaitForSeconds (1);
 		outOfAmmo = false;
+		#endif
 	}
 
 	public void healDamage (float heal_val) {
 		if (currentHealth != maxHealth) {
 			currentHealth += heal_val;
-				}
+		}
 	}
 
 	public void takeDamage (float dmg_val) {
