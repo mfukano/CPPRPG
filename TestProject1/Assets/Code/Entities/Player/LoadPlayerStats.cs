@@ -9,7 +9,7 @@ public class LoadPlayerStats : MonoBehaviour
 	public Slider energyBar;
 	private Player myPlayer;
 #if UNITY_EDITOR
-	public UnityEngine.GUIStyle style;
+	public GUIStyle style;
 #endif
 
 	// Use this for initialization
@@ -24,8 +24,8 @@ public class LoadPlayerStats : MonoBehaviour
 		style.normal.textColor = new Color(0.8F, 0, 0.2F, 0.95F);
 		style.alignment = TextAnchor.UpperCenter;
 		style.fontSize = 100;
+		GUI.TextField (new Rect(Screen.width*0.25F,Screen.height*0.25F,Screen.width*0.5F,Screen.height*0.25F), "U DED!?", style);
 #endif
-		GUI.TextField (new Rect(Screen.width*0.25F,Screen.height*0.25F, Screen.width*0.5F,Screen.height*0.25F), "U DED!?", style);
 		myPlayer.gameObject.SetActive (false);
 		yield return new WaitForSeconds (0.2F);
 		Application.LoadLevel ("MainMenu");

@@ -67,10 +67,10 @@ public class Player : MonoBehaviour {
 
 	IEnumerator NotEnoughAmmo () {
 		#if UNITY_EDITOR
-		GUI.Label (new Rect(Screen.width/2 - 150, Screen.height/2 - 150, 300, 300), "Not enough ammo!", style);
+		GUI.Label (new Rect(Screen.width/2 - 150, Screen.height/2 - 150, 300, 300), "Not enough ammo!", style);	
+		#endif
 		yield return new WaitForSeconds (1);
 		outOfAmmo = false;
-		#endif
 	}
 
 	public void healDamage (float heal_val) {

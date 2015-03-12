@@ -55,9 +55,9 @@ public class Item : MonoBehaviour {
 	IEnumerator TooMuchWeight () {
 		#if UNITY_EDITOR
 		GUI.Label (new Rect(Screen.width/2 - 200, Screen.height/2 - 150, 300, 300), "Not enough space in your backpack!", style2);
+		#endif
 		yield return new WaitForSeconds (1);
 		tooMuchWeight = false;
-		#endif
 	}
 
 	// Update is called once per frame
